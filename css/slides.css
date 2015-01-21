@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Styles for the sliding window front-page display
+   ========================================================================== */
+
+#slide_prog_geek { background-image: url("../img/prog_geek.jpg"); }
+#slide_tech_sci { background-image: url("../img/tech_sci.jpg"); }
+
+.content-cell {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-color: #000;
+}
+
+#scroller {
+	background-color:#000;
+}
+
+.footer {
+	background-color:#CCC;
+}
