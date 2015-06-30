@@ -97,7 +97,7 @@ body {
 	float: left;
 	width: 1920px;
 	height: 100%;
-	border-right: 1px solid #ccc;
+	/*border-right: 1px solid #ccc;*/
 	background-color: #fafafa;
 	font-size: 14px;
 }
