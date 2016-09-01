@@ -1,0 +1,12 @@
+/* ==========================================================================
+   Styles for the header section that stays static
+   ========================================================================== */
+
+header .wrapper {
+   width: 1024px;
+   margin: 0 auto;
+}
+
+header h2 {
+   float: left;
+}
