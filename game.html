@@ -127,7 +127,7 @@
 											<span class="input-group-addon">
 												<i class="fa fa-group"></i>
 											</span>
-											<input id="the-score" type="number" class="form-control" placeholder="Score" readonly=true>
+											<input id="the-score" type="number" class="form-control" readonly=false, min="0">
 										</div>
 									</div>
 									<div class="tab-pane" id="settings">
@@ -276,7 +276,9 @@
 			if (_correct == true) {
 				$('#the-guess').val('')
 				$('#countries-carousel').carousel('next')
-				$('the-score').val($('the-score').val()+1)
+
+				var _newscore = $('#the-score').val() + 1
+				$('#the-score').val(_newscore)
 			}
 
 			console.log($('#the-answer').val())
