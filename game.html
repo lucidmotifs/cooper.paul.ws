@@ -20,7 +20,12 @@
     <link href="assets/css/material-kit.css" rel="stylesheet"/>
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
-	.carousel-inner
+	<style type="text/css">
+		.carousel-inner h3 {
+			margin-bottom: 150px;
+			color: #434343;
+		}
+	</style>
 
 </head>
 
@@ -78,74 +83,6 @@
 		<div class="section section-tabs">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6">
-						<!-- Tabs with icons on Card -->
-						<div class="card card-nav-tabs">
-							<div class="header header-danger">
-								<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-								<div class="nav-tabs-navigation">
-									<div class="nav-tabs-wrapper">
-										<ul class="nav nav-tabs" data-tabs="tabs">
-											<li class="active">
-												<a href="#instructions" data-toggle="tab">
-													<i class="material-icons">chat</i>
-													Instructions
-												</a>
-											</li>
-											<li>
-												<a href="#profile" data-toggle="tab">
-													<i class="material-icons">face</i>
-													Profile
-												</a>
-											</li>
-											<li>
-												<a href="#settings" data-toggle="tab">
-													<i class="material-icons">build</i>
-													Settings
-												</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="content">
-								<div class="tab-content text-left">
-									<div class="tab-pane active" id="instructions">
-										<p><ol>
-											<li>Click on the left or right hand side of the image to move forward or backwards.
-											<li>Type the name of capital in the box and press enter.
-											<li>If you are correct, the country is removed from the list and your score goes up by one. Continue until no countries remain or the timer
-											runs out!
-											</ol></p>
-									</div>
-									<div class="tab-pane active" id="profile">
-										<div class="input-group">
-											<span class="input-group-addon">
-												<i class="material-icons">account_balance</i>
-											</span>
-											<input id="the-score" type="number" class="form-control" value=0 min=0 max=5000 readonly>
-										</div>
-									</div>
-									<div class="tab-pane" id="settings">
-										<p><div class="togglebutton">
-											<label>
-										    	<input type="checkbox" checked="">
-												Toggle is on
-											</label>
-										</div>
-
-										<div class="togglebutton">
-											<label>
-										    	<input type="checkbox">
-												Toggle is off
-											</label>
-										</div></p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- End Tabs with icons on Card -->
-					</div>
 
 					<div class="col-md-6">
 						<div class="title">
@@ -184,23 +121,96 @@
 					</div>
 					<!-- End Carousel Card -->
 
-				</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-12">
+								<!-- Tabs with icons on Card -->
+								<div class="card card-nav-tabs">
+									<div class="header header-info">
+										<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+										<div class="nav-tabs-navigation">
+											<div class="nav-tabs-wrapper">
+												<ul class="nav nav-tabs" data-tabs="tabs">
+													<li class="active">
+														<a href="#instructions" data-toggle="tab">
+															<i class="material-icons">chat</i>
+															Instructions
+														</a>
+													</li>
+													<li>
+														<a href="#profile" data-toggle="tab">
+															<i class="material-icons">face</i>
+															Profile
+														</a>
+													</li>
+													<li>
+														<a href="#settings" data-toggle="tab">
+															<i class="material-icons">build</i>
+															Settings
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
 
-				<div class="row">
-					<div id="messages" class="col-md-4 col-md-offset-2">
+									<div class="content">
+										<div class="tab-content text-left">
+											<div class="tab-pane active" id="instructions">
+												<p><ol>
+													<li>Click on the left or right hand side of the image to move forward or backwards.
+													<li>Type the name of capital in the box and press enter.
+													<li>If you are correct, the country is removed from the list and your score goes up by one. Continue until no countries remain or the timer
+													runs out!
+													</ol></p>
+											</div>
+											<div class="tab-pane active" id="profile">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">account_balance</i>
+													</span>
+													<input id="the-score" type="number" class="form-control" value=0 min=0 max=5000 readonly>
+												</div>
+											</div>
+											<div class="tab-pane" id="settings">
+												<p><div class="togglebutton">
+													<label>
+												    	<input type="checkbox" checked="">
+														Toggle is on
+													</label>
+												</div>
 
-					</div>
-
-					<div id="answer-form" class="col-md-6">
-						<div class="title">
-							<h4>Answer: </h4>
+												<div class="togglebutton">
+													<label>
+												    	<input type="checkbox">
+														Toggle is off
+													</label>
+												</div></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End Tabs with icons on Card -->
+							</div>
 						</div>
-						<div class="form-group label-floating">
-							<label class="control-label">Capital City</label>
-							<input id="the-guess" type="text" class="form-control">
-							<input id="the-answer" type="hidden">
+
+						<div class="row">
+
+							<div id="answer-form" class="col-md-7">
+								<div class="title">
+									<h4>Answer: </h4>
+								</div>
+								<div class="form-group label-floating">
+									<label class="control-label">Capital City</label>
+									<input id="the-guess" type="text" class="form-control">
+									<input id="the-answer" type="hidden">
+								</div>
+								<button id="answer-submit" class="btn btn-white">Answer</button>
+							</div>
+
+							<div id="messages" class="col-md-12"></div>
+
 						</div>
-						<button id="answer-submit" class="btn btn-white">Answer</button>
 					</div>
 				</div>
 			</div>
@@ -244,13 +254,51 @@
 	<option value="Ouagadougou">Burkina Faso</option>
 	<option value="Bujumbura">Burundi</option>
 	<option value="Yaounde">Cameroon</option>
-	<option value="Praia">The Republic of Cabo Verde</option>
+	<option value="Praia">Cabo Verde</option>
 	<option value="Bangui">Central African Republic</option>
-	<option value="Brazzaville">Congo</option>
+	<option value="N'Djamena">Chad</option>
+	<option value="Moroni">Comoros</option>
+	<option value="Kinshasa">Democratic Republic of Congo</option>
+	<option value="Brazzaville">Republic of Congo</option>
+	<option value="Yamoussoukro">Cote d'Ivoire</option>
+	<option value="Djibouti">Djibouti</option>
+	<option value="Cairo">Egypt</option>
+	<option value="Malabo">Equatorial Guinea</option>
+	<option value="Asmara">Eritrea</option>
 	<option value="Addis Ababa">Ethiopia</option>
+	<option value="Libreville">Gabon</option>
+	<option value="Banjul">Gambia</option>
+	<option value="Accra">Ghana</option>
+	<option value="Conakry">Guinea</option>
+	<option value="Bissau">Guinea Bissau</option>
+	<option value="Nairobi">Kenya</option>
+	<option value="Maseru">Lesotho</option>
+	<option value="Monrovia">Liberia</option>
+	<option value="Tripoli">Libya</option>
+	<option value="Antananarivo">Madagascar</option>
+	<option value="Lilongwe">Malawi</option>
+	<option value="Bamako">Mali</option>
+	<option value="Nouakchott">Mauritania</option>
+	<option value="Port Louis">Mauritius</option>
 	<option value="Rabat">Morocco</option>
+	<option value="Maputo">Mozambique</option>
+	<option value="Windhoek">Namibia</option>
+	<option value="Niamey">Niger</option>
+	<option value="Abuja">Nigeria</option>
+	<option value="Kigali">Rwanda</option>
+	<option value="Sao Tome">Sao Tome and Principe</option>
 	<option value="Dakar">Senegal</option>
-	<option value="Cape Town">South Africa</option>
+	<option value="Victoria">Seychelles</option>
+	<option value="Freetown">Sierra Leone</option>
+	<option value="Pretoria ">South Africa</option>
+	<option value="Juba">South Sudan</option>
+	<option value="Khartoum">Sudan</option>
+	<option value="Lobamba">Swaziland</option>
+	<option value="Dar es Salaam">Tanzania</option>
+	<option value="Lomé">Togo</option>
+	<option value="Tunis">Tunisia</option>
+	<option value="Kampala">Uganda</option>
+	<option value="Lusaka">Zambia</option>
 	<option value="Harare">Zimbabwe</option>
 </select>
 
@@ -312,9 +360,9 @@
 			var message = "<b>Error!</b> Your answer was incorrect try again or pass";
 
 			$(iconBox).append($(icon));
+			$(container).html(message);
 			$(container).append($(iconBox));
 			$(container).append($(button));
-			$(container).html(message);
 			$(outerDiv).append($(container));
 
 			return $(outerDiv)
@@ -325,10 +373,14 @@
 			$('#the-answer').val(e.relatedTarget.id);
 			$('#the-guess').focus();
 			console.log(e.relatedTarget.id);
+
+			if (e.relatedTarget.id == 'start') {
+				$('#answer-form').show();
+			}
 		});
 
 		$('#answer-submit').on('click', function () {
-			var _theguess = $('#the-guess').val().replace(/\s+/g, '-').toLowerCase();
+			var _theguess = $('#the-guess').val().replace(/\s+/g, '_').replace(/\'+/g, '-');
 			var _correct = $('#the-answer').val() == _theguess;
   			console.log(_correct);
 
@@ -343,7 +395,7 @@
 				var _alert = failAlert();
 			}
 
-			$('#messages').append(_alert)
+			$('#messages').html(_alert)
 
 			console.log($('#the-answer').val())
 		});
@@ -351,13 +403,13 @@
 
 	<script>
 		$('#africa-nations-list').find('option').each(function(index, element) {
-			var normCountry = element.text.replace(/\s+/g, '_');
+			var normCountry = element.text.replace(/\s+/g, '_').replace(/\'+/g, '-');
 			var normCity =  element.value.replace(/\s+/g, '_');
 
 			var _icon = $("<i></i>").addClass("materials-icons").html("location_on");
 			var _h3 = $("<h3></h3>").append($(_icon)).html(element.text);
 			var _div = $("<div></div>").addClass("carousel-caption");
-			var _img = $("<img></img>").attr('src', "assets/img/countries/Africa" + normCountry + "/" + normCountry + "02.png").prop('alt', element.text);
+			var _img = $("<img></img>").attr('src', "assets/img/countries/Africa/" + normCountry + "/" + normCountry + "02.png").prop('alt', element.text);
 			var _div_item = $("<div></div>").attr('id', normCity).addClass("item");
 
 			$(_div_item).append($(_img));
