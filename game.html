@@ -290,9 +290,9 @@
 			var message = "<b>Success!</b> Your answer was correct and you gained 10 points";
 
 			$(iconBox).append($(icon));
+			$(container).html(message);
 			$(container).append($(iconBox));
 			$(container).append($(button));
-			$(container).html(message);
 			$(outerDiv).append($(container));
 
 			return $(outerDiv)
@@ -351,13 +351,13 @@
 
 	<script>
 		$('#africa-nations-list').find('option').each(function(index, element) {
-			var normCountry = element.text.replace(/\s+/g, '-').toLowerCase();
-			var normCity =  element.value.replace(/\s+/g, '-').toLowerCase();
+			var normCountry = element.text.replace(/\s+/g, '_');
+			var normCity =  element.value.replace(/\s+/g, '_');
 
 			var _icon = $("<i></i>").addClass("materials-icons").html("location_on");
 			var _h3 = $("<h3></h3>").append($(_icon)).html(element.text);
 			var _div = $("<div></div>").addClass("carousel-caption");
-			var _img = $("<img></img>").attr('src', "assets/img/countries/" + normCountry + "/" + normCountry + "01.png").prop('alt', element.text);
+			var _img = $("<img></img>").attr('src', "assets/img/countries/Africa" + normCountry + "/" + normCountry + "02.png").prop('alt', element.text);
 			var _div_item = $("<div></div>").attr('id', normCity).addClass("item");
 
 			$(_div_item).append($(_img));
@@ -370,8 +370,6 @@
 
 			$('.carousel-indicators').append($(_li));
 		});
-
-
 	</script>
 
 </html>
