@@ -74,9 +74,8 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
-	</div>
+	</div> <!-- End header -->
 
 	<div class="main main-raised">
 
@@ -173,19 +172,24 @@
 												</div>
 											</div>
 											<div class="tab-pane" id="settings">
-												<p><div class="togglebutton">
+												<div class="togglebutton col-sm-offset-1">
 													<label>
 												    	<input type="checkbox" checked="">
-														Toggle is on
+															Answers are case sensitive.
 													</label>
 												</div>
 
-												<div class="togglebutton">
+												<div class="togglebutton col-sm-offset-1">
 													<label>
 												    	<input type="checkbox">
-														Toggle is off
+															Allow multiple chances at answers.
 													</label>
-												</div></p>
+												</div>
+
+												<div class="col-sm-8">
+													<div id="sliderRegular" class="slider slider-info"></div>
+												</div>
+
 											</div>
 										</div>
 									</div>
@@ -407,7 +411,7 @@
 			var normCity =  element.value.replace(/\s+/g, '_');
 
 			var _icon = $("<i></i>").addClass("materials-icons").html("location_on");
-			var _h3 = $("<h3></h3>").append($(_icon)).html(element.text);
+			var _h3 = $("<h3></h3>").addClass("question-text").append($(_icon)).html(element.text);
 			var _div = $("<div></div>").addClass("carousel-caption");
 			var _img = $("<img></img>").attr('src', "assets/img/countries/Africa/" + normCountry + "/" + normCountry + "02.png").prop('alt', element.text);
 			var _div_item = $("<div></div>").attr('id', normCity).addClass("item");
@@ -417,10 +421,30 @@
 
 			$('.carousel-inner').append($(_div_item));
 
-			var _li = $("<li></li>").attr('data-target', "#countries-carousel")
-											.attr('data-slide-to', index+1);
+			//var _li = $("<li></li>").attr('data-target', "#countries-carousel")
+			//								.attr('data-slide-to', index+1);
 
-			$('.carousel-indicators').append($(_li));
+			//$('.carousel-indicators').append($(_li));
+		});
+	</script>
+
+	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+	<script src="assets/js/nouislider.min.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+
+		$().ready(function(){
+			// init sliders
+			var slider = $('#sliderRegular');
+
+			$('#sliderRegular').noUiSlider({
+            start: 2,
+            connect: "lower",
+            range: {
+                min: 0,
+                max: 10
+            }
+        });
 		});
 	</script>
 
