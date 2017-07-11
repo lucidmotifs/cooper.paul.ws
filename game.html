@@ -113,22 +113,22 @@
 									</ol>
 
 									<!-- Wrapper for slides -->
-									<div class="carousel-inner">
-										<div id="start" class="item active">
+									<div class="carousel-inner" role="listbox">
+										<!--<div id="start" class="carousel-item active">
 											<img src="assets/img/bg2.jpeg" alt="Slide to Begin">
 											<div class="carousel-caption">
 												<h4><i class="material-icons">arrow_forward</i> Slide Right to Begin!</h4>
 											</div>
-										</div>
+										</div>-->
 									</div>
 
 									<!-- Controls -->
-									<!--<a class="left carousel-control" href="#countries-carousel">
+									<a class="left carousel-control" href="#countries-carousel" data-slide='prev'>
 										<i class="material-icons">keyboard_arrow_left</i>
 									</a>
-									<a id="start-game" class="right carousel-control" href="#countries-carousel">
+									<a id="start-game" class="right carousel-control" href="#countries-carousel" data-slide='next'>
 										<i class="material-icons">keyboard_arrow_right</i>
-									</a>-->
+									</a>
 
 									<form id="answer-form" class="form-inline col-sm-offset-4" autocomplete="off" style="z-index:16">
 										<div class="input-group has-success">
@@ -147,7 +147,11 @@
 											<input id="the-answer" type="hidden">
 										</div>
 										<!--</div>-->
-										<input id="the-answer" type="hidden">
+										<div class="input-group col-sm-4">
+											<button type="button" class="btn btn-xs">Hints</button>
+											<input id="the-answer" type="hidden">
+										</div>
+
 									</form>
 
 								</div>
@@ -492,6 +496,9 @@
 
 			});
 
+			$('.carousel-inner .item:first').addClass('active');
+			$('#countries-carousel').carousel(0);
+
 			return _answers;
 		}
 
@@ -555,6 +562,19 @@
 				// update_answer
 				$('#the-answer').val(e.relatedTarget.id);
 				$('#the-guess').focus();
+				$('input#the-guess').on('input', function( e ) {
+					// create options list
+					$('#answer-form .input-group:last input[type="text"]').remove();
+					var eles = $("#data-list option[value^=\""+ $(this).val() +"\"]");
+					$(eles).each( function( index, option ) {
+							$('#answer-form .input-group:last input:last').after($('<input>', {
+			        	type: "text",
+			        	class: "form-control",
+								value: option.value,
+			    		}));
+					});
+					console.log(eles.length);
+				});
 
 				console.log(e.relatedTarget.id);
 
@@ -570,12 +590,6 @@
 
 			$('#scorecard').on('submit'), function(e) {
 					e.preventDefault();
-			}
-
-			$('#the-guess').on('change'), function(e) {
-				// create options list
-				var $eles = $("#data-list option[value^="+ $(this).val +"]");
-
 			}
 
 			$('#answer-form').on('submit', function(e) {
@@ -601,7 +615,7 @@
 							 _score.val(+_score.val() + 10);
 
 							 // show tick
-							 $('#answer-form .input-group:first').toggle();
+							 $('#answer-form .input-group:first').toggleClass('invisible');
 
 							// Solved
 							var _solved = $('#scorecard input[name="items_solved"]');
@@ -611,11 +625,9 @@
 							//var _passed = $('#profile input["name=items_solved"]');
 							//_passed.val(_solved.val() + 1);
 
-							$('#countries-carousel').carousel(chooseRandomCountry());
+							$('#countries-carousel').carousel('next');
 					} else {
 							var _alert = failAlert();
-
-
 							// if we give mutltiple tries, show pass button
 							// otherwise just add missed
 
@@ -640,12 +652,14 @@
 					e.preventDefault();
 
 					index = Math.floor(Math.random()*(data_length-0+1)+0);
-					$('#countries-carousel').carousel(index+1);
+					$('#countries-carousel').carousel(index);
 
 					// set everything to 0
 					$('#start-button').fadeOut();
 					$('#the-game-screen').fadeIn();
 					$('#answer-form').fadeIn();
+
+					console.log($('#the-answer').val());
 
 					// Scorecard
 					$('#profile input[name="items_solved"]').val(0);
