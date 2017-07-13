@@ -30,7 +30,7 @@
 			visibility: hidden;
 		}
 
-		#answer-form {
+		#aswer-form {
     	position:absolute;
     	top:40%;
 		}
@@ -103,14 +103,10 @@
 						<!-- Carousel Card -->
 						<div class="card card-raised card-carousel">
 							<div id="countries-carousel" class="carousel slide" data-ride="carousel">
-								<div class="carousel slide col-sm" data-ride="carousel">
+								<div class="carousel slide" data-ride="carousel">
 
 									<!-- Indicators -->
-									<ol class="carousel-indicators">
-
-									<!-- Answer Form -->
-										<li data-target="#countries-carousel" data-slide-to="0" class="active"></li>
-									</ol>
+									<ol class="carousel-indicators"></ol>
 
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
@@ -129,31 +125,43 @@
 									<a id="start-game" class="right carousel-control" href="#countries-carousel" data-slide='next'>
 										<i class="material-icons">keyboard_arrow_right</i>
 									</a>
+									<div class="card card-raised text-left col-sm-offset-4" style="z-index:16;position:absolute;top:40%;">
+									<form id="answer-form" class="form-inline" autocomplete="off" method="" action="">
 
-									<form id="answer-form" class="form-inline col-sm-offset-4" autocomplete="off" style="z-index:16">
-										<div class="input-group has-success">
-											<span class="form-control-feedback">
-												<i class="material-icons">done</i>
-											</span>
-										</div>
-										<!-- <div class="form-group">-->
-										<div class="form-group label-floating">
-												<label class="control-label" for="the-guess">The Capital City is...</label>
-												<input id="the-guess" class="form-control" type="text">
-										</div>
+										<div class="row">
 
-										<div class="input-group">
-											<button id="answer-submit" type="submit" class="col-md-8 btn btn-sm btn-white">Answer</button>
-											<input id="the-answer" type="hidden">
+											<div class="input-group has-success">
+												<span class="form-control-feedback">
+													<i class="material-icons">done</i>
+												</span>
+											</div>
+											<!-- <div class="form-group">-->
+											<div class="form-group label-floating">
+													<label class="control-label" for="the-guess">The Capital City is...</label>
+													<input id="the-guess" class="form-control" type="text">
+											</div>
+
+											<div class="input-group">
+												<button id="answer-submit" type="submit" class="btn btn-sm btn-white">Answer</button>
+												<input id="the-answer" type="hidden">
+											</div>
+
 										</div>
-										<!--</div>-->
-										<div class="input-group col-sm-4">
-											<button type="button" class="btn btn-xs">Hints</button>
-											<input id="the-answer" type="hidden">
+										<div class="row">
+
+											<div class="input-group col-sm-4">
+													<label type="button" class="btn btn-xs">Hints</button>
+														<input id="the-answer" type="hidden">
+											</div>
+
+											<div class="input-group col-sm-12">
+												<button id="hint" type="button" class="btn btn-simple btn-xs">Hint</button>
+											</div>
+
 										</div>
 
 									</form>
-
+								</div>
 								</div>
 							</div>
 						</div>
@@ -390,7 +398,7 @@
 	<option value="Dakar">Senegal</option>
 	<option value="Victoria">Seychelles</option>
 	<option value="Freetown">Sierra Leone</option>
-	<option value="Pretoria ">South Africa</option>
+	<option value="Pretoria">South Africa</option>
 	<option value="Juba">South Sudan</option>
 	<option value="Khartoum">Sudan</option>
 	<option value="Lobamba">Swaziland</option>
@@ -502,6 +510,8 @@
 			return _answers;
 		}
 
+
+
 		function chooseRandomCountry() {
 			index = Math.floor(Math.random()*(data_length-0+1)+0);
 			return index;
@@ -562,15 +572,23 @@
 				// update_answer
 				$('#the-answer').val(e.relatedTarget.id);
 				$('#the-guess').focus();
+
 				$('input#the-guess').on('input', function( e ) {
 					// create options list
-					$('#answer-form .input-group:last input[type="text"]').remove();
+					$('#answer-form .input-group:last button').remove();
 					var eles = $("#data-list option[value^=\""+ $(this).val() +"\"]");
 					$(eles).each( function( index, option ) {
-							$('#answer-form .input-group:last input:last').after($('<input>', {
-			        	type: "text",
-			        	class: "form-control",
-								value: option.value,
+							$('#answer-form .input-group:last').append($('<button>', {
+			        	class: "btn btn-simple btn-xs",
+								html: option.value,
+								fadeIn: true,
+								on: { 'click': function( e ) {
+										e.preventDefault();
+										$('#the-guess').val( $(e.target).html() );
+
+										$('#answer-form').submit();
+									},
+								},
 			    		}));
 					});
 					console.log(eles.length);
@@ -597,6 +615,9 @@
 			//})
 			//$('#answer-submit').on('click', function () {
 					var _theguess = escape($('#the-guess').val().replace(/\s+/g, '_'));
+
+					// Clear hints
+					$('#answer-form .input-group:last button').remove();
 
 					// check answer
 					var _correct = checkAnswer(this, _theguess, $('#the-answer'));
