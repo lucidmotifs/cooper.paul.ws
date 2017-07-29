@@ -95,7 +95,7 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="brand">
-						<h1>CAPITALS.</h1>
+						<h1>CAPITALS</h1>
 						<h3>Julia's Geography and Memory Game</h3>
 					</div>
 				</div>
@@ -108,18 +108,12 @@
 		<div class="section section-tabs">
 			<div class="container">
 
-				<div id="start-screen" class="col-sm-12 text-center" >
-					<div class="form-group">
-						<button id="start-button" class="btn btn-danger">Start</button>
-					</div>
-				</div>
-
 				<div class="row">
 
 					<div id="the-game-screen" class="col-sm-6 text-center">
 
 						<div class="header header-primary text-center">
-							<h4>Sign Up</h4>
+							<h3>Currently Memorizing The Capital Cities of Africa</h3>
 						</div>
 
 						<!-- Carousel Card -->
@@ -167,8 +161,8 @@
 														<input id="the-guess" class="form-control" type="text">
 												</div>
 
-												<div class="input-group text-right">
-													<button id="answer-submit" type="submit" class="btn btn-sm btn-white">Answer</button>
+												<div class="input-group text-right col-sm-4">
+													<button id="answer-submit" type="submit" class="btn btn-md btn-white">Answer</button>
 													<input id="the-answer" type="hidden">
 												</div>
 
@@ -176,19 +170,22 @@
 
 											<div class="row">
 
-												<div class="text-right">
-													<button type="button" class="btn btn-danger btn-xs tooltip-hint" data-toggle="tooltip" data-placement="top" title="No Hint">Hover for Hint</button>
+												<div class="input-group col-sm-12">
+
 												</div>
 
-												<div class="input-group col-sm-4">
-														<label type="button" class="btn btn-xs">Choices</button>
+												<div class="input-group">
+														<label type="button" class="btn btn-xs">Display Choices</label>
+														<button type="button" class="btn btn-danger btn-xs tooltip-hint" data-toggle="tooltip" data-placement="top" title="No Hint">Hover for Hint</button>
 														<input id="the-answer" type="hidden">
 												</div>
 
-												<div class="input-group col-sm-12">
-													<button id="hint" type="button" class="btn btn-simple btn-xs">Placeholder</button>
-												</div>
+											</div>
 
+											<div id="start-screen" class="col-sm-12 text-center" >
+												<div class="form-group">
+													<button id="start-button" class="btn btn-danger">Start</button>
+												</div>
 											</div>
 
 										</form>
@@ -199,7 +196,7 @@
 					</div>
 					<!-- End Carousel Card -->
 
-					<div class="col-sm-6 col-md-6">
+					<div class="col-md-6">
 						<div class="row">
 							<div class="col-md-12">
 								<!-- Tabs with icons on Card -->
@@ -441,128 +438,15 @@
 	<!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
 	<script src="assets/js/material-kit.js" type="text/javascript"></script>
 
-	<script>
-		var data_length = $('#africa-nations-list').children().length;
+	<script src="assets/js/custom/gamesrc.js">
 
-		function successAlert() {
-			var outerDiv = $("<div></div>").attr('id', "success-message").addClass("alert alert-success");
-			var container = $("<div></div>").addClass("container-fluid");
-			var iconBox = $("<div></div>").addClass("alert-icon");
-			var icon = $("<i></i>").addClass("material-icons").html("check");
-
-			var button = $("<button></button>").attr('type', "button").addClass("close");
-			button.attr('data-dismiss', "alert")
-						.attr('aria-label', "Close");
-			button.html("<span aria-hidden='true'><i class='material-icons'>clear</i></span>")
-
-			var message = "<b>Success!</b> You gained 10 points";
-
-			$(iconBox).append($(icon));
-			$(container).html(message);
-			$(container).append($(iconBox));
-			$(container).append($(button));
-			$(outerDiv).append($(container));
-
-			return $(outerDiv)
-		}
-
-		function failAlert() {
-			var outerDiv = $("<div></div>").attr('id', "fail-message").addClass("alert alert-danger");
-			var container = $("<div></div>").addClass("container-fluid");
-			var iconBox = $("<div></div>").addClass("alert-icon");
-			var icon = $("<i></i>").addClass("material-icons").html("error_outline");
-
-			var button = $("<button></button>").attr('type', "button").addClass("close");
-			button.attr('data-dismiss', "alert")
-					.attr('aria-label', "Close");
-			button.html("<span aria-hidden='true'><i class='material-icons'>clear</i></span>")
-
-			var message = "<b>Error!</b> Wrong answer, try again or pass";
-
-			$(iconBox).append($(icon));
-			$(container).html(message);
-			$(container).append($(iconBox));
-			$(container).append($(button));
-			$(outerDiv).append($(container));
-
-			return $(outerDiv)
-		}
-
-		var _answers = Array();
-
-		function loadData( data ) {
-			// load data into carousel
-			$(data).find('option').each(function(index, element) {
-				var normCountry = escape(element.text.replace(/\s+/g, '_'));
-				var normCity =  escape(element.value.replace(/\s+/g, '_'));
-
-				_answers.push(normCity);
-
-				var _icon = $("<i></i>").addClass("material-icons")
-																.html("location_on");
-				var _h3 = $("<h2></h2>").addClass("question-text")
-																.append($(_icon));
-				var _p = $("<p></p>").attr('id', "possibilities");
-
-				_h3.html(_h3.html() + ' ' + element.text);
-
-				var _caption = $("<div></div>").addClass("carousel-caption");
-				var _img = $("<img></img>").attr('src', "assets/img/countries/Africa/" + normCountry + "/" + normCountry + "02.png")
-																	 .prop('alt', element.text);
-				var _item = $("<div></div>").attr('id', normCity)
-																.addClass("item");
-
-				//var _answerForm = $('#answer-box').html;
-				$(_caption).append($(_h3));
-				$(_caption).append($(_p));
-				$(_item).append($(_img));
-				$(_item).append($(_caption));
-
-				$('.carousel-inner').append($(_item));
-
-				$('#data-list').append($('<option>', {
-        			value: element.value,
-        			text : element.text
-    			}));
-
-			});
-
-			$('.carousel-inner .item:first').addClass('active');
-			$('#countries-carousel').carousel(0);
-
-			return _answers;
-		}
-
-		function chooseRandomCountry() {
-			index = Math.floor(Math.random()*(data_length-0+1)+0);
-			return index;
-		}
-
-		function checkAnswer(sender, guess, answer) {
-			//alert( $('#settings input.ignore-case')[0].checked );
-			ans = answer.val().replace(/\s+/g, '_');
-
-			if ( $('#settings input.ignore-case')[0].checked == true ) {
-				return ans.toLowerCase() == guess.toLowerCase();
-			} else {
-				return ans == guess;
-			}
-
-			// debug
-
-		}
-
-		var data_list = {
-			'africa': '#africa-nations-list',
-			'europe': '#europe-nations-list',
-			///etc.
-		};
 	</script>
 
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 	<script src="assets/js/nouislider.min.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
+
 		$().ready(function() {
 
 			var slider2 = document.getElementById('sliderRefine');
@@ -584,144 +468,11 @@
 				$('#hint-body').html(hint);
 			});
 
-			$('#countries-carousel').on('slid.bs.carousel', function (e) {
-
-				$('#answer-form .form-group').removeClass('has-success');
-				$('#answer-form .input-group:first').toggleClass('invisible');
-
-				// update_answer
-				$('#the-answer').val(e.relatedTarget.id);
-				$('#the-guess').focus();
-
-				console.log(e.relatedTarget.id);
-
-				var hint = escape( $('#the-answer').val().substring(0, slider2.noUiSlider.get()) );
-				hint = hint.replace(/\s+/g, '_');
-				$('#hint-body').html(hint);
-				$('#answer-form .tooltip-hint').attr('title', hint);
-				$('#answer-form .tooltip-hint').tooltip('fixTitle');
-
-
-				if (e.relatedTarget.id == 'start') {
-					$('#answer-form').fadeOut();
-					$('#start-button').fadeIn();
-				}
-
-			});
-
-			$('#answer-form .tooltip-hint').on('click', function(e) {
-				$('#the-guess').focus();
-				$('#the-guess').val( $('#hint-body').html() );
-			})
-
-			$('input#the-guess').on('input', function( e ) {
-				// create options list
-				$('#answer-form .input-group:last button').remove();
-				var eles = $("#data-list option[value^=\""+ $(this).val() +"\"]");
-				$(eles).each( function( index, option ) {
-						$('#answer-form .input-group:last').append($('<button>', {
-							class: "btn btn-simple btn-xs",
-							html: option.value,
-							fadeIn: true,
-							on: { 'click': function( e ) {
-									e.preventDefault();
-									$('#the-guess').val( $(e.target).html() );
-
-									$('#answer-form').submit();
-								},
-							},
-						}));
-				});
-				console.log(eles.length);
-			});
-
-			//$('show-hint').on('click')
-
-			$('#scorecard').on('submit', function(e) {
-					e.preventDefault();
-			});
-
-			$('#answer-form').on('submit', function(e) {
-					e.preventDefault();
-			//})
-			//$('#answer-submit').on('click', function () {
-					var _theguess = escape($('#the-guess').val().replace(/\s+/g, '_'));
-
-					// Clear hints
-					$('#answer-form .input-group:last button').remove();
-
-					// check answer
-					var _correct = checkAnswer(this, _theguess, $('#the-answer'));
-
-					if (_correct == true) {
-
-							_ele = $('#answer-form .form-group')[0];
-							$(_ele).addClass("has-success");
-
-							$('#the-guess').val('');
-
-							var _alert = successAlert();
-
-							// score
-							var _score = $('#scorecard input[name="the_score"]');
-							 _score.val(+_score.val() + 10);
-
-							 // show tick
-							 $('#answer-form .input-group:first').toggleClass('invisible');
-
-							// Solved
-							var _solved = $('#scorecard input[name="items_solved"]');
-							_solved.val(+_solved.val() + 1);
-
-							// Passed
-							//var _passed = $('#profile input["name=items_solved"]');
-							//_passed.val(_solved.val() + 1);
-
-							//$('#countries-carousel').carousel('next');
-
-							index = Math.floor(Math.random()*(data_length-0+1)+0);
-							$('#countries-carousel').carousel(index);
-					} else {
-							var _alert = failAlert();
-							// if we give mutltiple tries, show pass button
-							// otherwise just add missed
-
-							// Missed
-							var _missed = $('#scorecard input[name="items_missed"]');
-							_missed.val(+_missed.val() + 1);
-
-							$('#the-guess').val('');
-							$('#the-guess').focus();
-					}
-
-				_alert.fadeTo(2000, 500).slideUp(500, function(){_alert.slideUp(500)});
-				$('#messages').html(_alert);
-
-				return false;
-
-			});
-
 			console.log($('#the-answer').val());
 
-			$('#start-button').on('click', function(e) {
-					e.preventDefault();
-
-					index = Math.floor(Math.random()*(data_length-0+1)+0);
-					$('#countries-carousel').carousel(index);
-
-					// set everything to 0
-					$('#start-button').fadeOut();
-					$('#the-game-screen').fadeIn();
-					$('#answer-form').fadeIn();
-
-					console.log($('#the-answer').val());
-
-					// Scorecard
-					$('#profile input[name="items_solved"]').val(0);
-					$('#profile input[name="items_passed"]').val(0);
-					$('#profile input[name="items_missed"]').val(0);
-			});
 		});
 	</script>
+
+	<script src="assets/js/custom/gameui.js" type="text/javascript"></script>
 
 </html>
