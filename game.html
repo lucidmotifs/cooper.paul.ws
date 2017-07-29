@@ -90,13 +90,13 @@
 
 <div class="wrapper">
 
-	<div class="header" style="background-image: url('assets/img/world-maps/world-maps-06.jpg');">
+	<div class="header" style="background-image: url('assets/img/world-maps/world-maps-01.jpg');">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="brand">
 						<h1>CAPITALS.</h1>
-						<h3>Julia's Geography and Memory Game.</h3>
+						<h3>Julia's Geography and Memory Game</h3>
 					</div>
 					<div id="start-screen" class="col-md-6 text-center" >
 						<div class="form-group">
@@ -112,9 +112,24 @@
 
 		<div class="section section-tabs">
 			<div class="container">
-					<div id="the-game-screen" class="col-sm-6 text-center" >
+
+				<div id="start-screen" class="col-sm-10 text-center" >
+					<div class="form-group">
+						<button id="start-button" class="btn btn-danger">Start</button>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div id="the-game-screen" class="col-sm-6 text-center">
+
+						<div class="header header-primary text-center">
+							<h4>Sign Up</h4>
+						</div>
+
 						<!-- Carousel Card -->
 						<div class="card card-raised card-carousel">
+
 							<div id="countries-carousel" class="carousel slide" data-ride="carousel">
 								<div class="carousel slide" data-ride="carousel">
 
@@ -225,12 +240,13 @@
 									<div class="content">
 										<div class="tab-content text-left">
 											<div class="tab-pane" id="instructions">
-												<p><ol>
-													<li>Click on the left or right hand side of the image to move forward or backwards.
-													<li>Type the name of capital in the box and press enter.
-													<li>If you are correct, the country is removed from the list and your score goes up by one. Continue until no countries remain or the timer
-													runs out!
-													</ol></p>
+												<p>
+													<ol>
+														<li>Click on the left or right hand side of the image to move forward or backwards.</li>
+														<li>Type the name of capital in the box and press enter.</li>
+														<li>If you are correct, the country is removed from the list and your score goes up by one. Continue until no countries remain or the timer runs out!</li>
+													</ol>
+												</p>
 											</div>
 											<div class="tab-pane active" id="profile">
 												<form id="scorecard" class="form">
@@ -269,8 +285,8 @@
 													</span>
 													<input id="items-missed" name="items_missed" type="text" class="form-control" placeholder="Missed" readonly>
 												</div>
-												<form>
 											</div>
+
 											<div class="tab-pane" id="settings">
 
 												<div class="togglebutton col-sm-offset-1">
@@ -306,14 +322,14 @@
 							</div>
 						</div>
 					</div>
-
+				<!-- end Row -->
 				</div>
 			</div>
 		</div>
 		<!-- End Section Tabs -->
 	</div>
 
-    <footer class="footer">
+   <footer class="footer">
 	    <div class="container">
 	        <nav class="pull-left">
 	            <ul>
@@ -510,9 +526,9 @@
 				$('.carousel-inner').append($(_item));
 
 				$('#data-list').append($('<option>', {
-        	value: element.value,
-        	text : element.text
-    		}));
+        			value: element.value,
+        			text : element.text
+    			}));
 
 			});
 
@@ -541,18 +557,17 @@
 
 		}
 
+		var data_list = {
+			'africa': '#africa-nations-list',
+			'europe': '#europe-nations-list',
+			///etc.
+		};
 	</script>
 
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 	<script src="assets/js/nouislider.min.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
-		var data_list = {
-			'africa': '#africa-nations-list',
-			'europe': '#europe-nations-list',
-			///etc.
-		};
-
 		$().ready(function() {
 
 			var slider2 = document.getElementById('sliderRefine');
