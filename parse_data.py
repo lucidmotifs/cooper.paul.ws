@@ -1,7 +1,5 @@
 import re
 
-import re
-
 """ Useful script for importing certain data sets from wikipedia """
 readfile = open('some_data.txt', 'r')
 matches = []
