@@ -30,15 +30,26 @@
 			visibility: hidden;
 		}
 
-		#aswer-form {
+		#answer-form-wrapper {
     	position:absolute;
-    	top:40%;
+			border-radius: 5px;
+    	top:20%;
 		}
 
 		#notifications {
 			position: fixed;
 			bottom: 2%;
 			z-index:100;
+		}
+
+		#answer-form-wrapper .row {
+			background-color: rgba(255, 255, 255, .8);
+			padding:0 10%;
+		}
+
+		#answer-form-wrapper .row:first {
+			-moz-border-radius: 15px;
+			border-radius: 15px;
 		}
 	</style>
 
@@ -87,6 +98,11 @@
 						<h1>CAPITALS.</h1>
 						<h3>Julia's Geography and Memory Game.</h3>
 					</div>
+					<div id="start-screen" class="col-md-6 text-center" >
+						<div class="form-group">
+							<button id="start-button" class="btn btn-danger">Start</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -96,10 +112,7 @@
 
 		<div class="section section-tabs">
 			<div class="container">
-
-				<div class="row">
-					<div class="col-sm-10 col-sm-offset-1 text-center" id="the-game-screen">
-
+					<div id="the-game-screen" class="col-sm-6 text-center" >
 						<!-- Carousel Card -->
 						<div class="card card-raised card-carousel">
 							<div id="countries-carousel" class="carousel slide" data-ride="carousel">
@@ -122,62 +135,61 @@
 									<a class="left carousel-control" href="#countries-carousel" data-slide='prev'>
 										<i class="material-icons">keyboard_arrow_left</i>
 									</a>
+
 									<a id="start-game" class="right carousel-control" href="#countries-carousel" data-slide='next'>
 										<i class="material-icons">keyboard_arrow_right</i>
 									</a>
-									<div class="text-left col-sm-offset-4" style="z-index:16;position:absolute;top:40%;">
-									<form id="answer-form" class="form-inline" autocomplete="off" method="" action="">
 
-										<div class="row">
+									<div id="answer-form-wrapper" class="text-left col-sm-offset-2 col-sm-8" style="z-index:16;">
 
-											<div class="input-group has-success">
-												<span class="form-control-feedback">
-													<i class="material-icons">done</i>
-												</span>
+										<form id="answer-form" class="form-inline" autocomplete="off" method="" action="">
+
+											<div class="row">
+
+												<div class="input-group has-success">
+													<span class="form-control-feedback">
+														<i class="material-icons">done</i>
+													</span>
+												</div>
+												<!-- <div class="form-group">-->
+												<div class="form-group label-floating">
+														<label class="control-label" for="the-guess">The Capital City is...</label>
+														<input id="the-guess" class="form-control" type="text">
+												</div>
+
+												<div class="input-group text-right">
+													<button id="answer-submit" type="submit" class="btn btn-sm btn-white">Answer</button>
+													<input id="the-answer" type="hidden">
+												</div>
+
 											</div>
-											<!-- <div class="form-group">-->
-											<div class="form-group label-floating">
-													<label class="control-label" for="the-guess">The Capital City is...</label>
-													<input id="the-guess" class="form-control" type="text">
-											</div>
 
-											<div class="input-group">
-												<button id="answer-submit" type="submit" class="btn btn-sm btn-white">Answer</button>
-												<input id="the-answer" type="hidden">
-											</div>
+											<div class="row">
 
-										</div>
-										<div class="row">
+												<div class="text-right">
+													<button type="button" class="btn btn-danger btn-xs tooltip-hint" data-toggle="tooltip" data-placement="top" title="No Hint">Hover for Hint</button>
+												</div>
 
-											<div class="input-group col-sm-4">
-													<label type="button" class="btn btn-xs">Hints</button>
+												<div class="input-group col-sm-4">
+														<label type="button" class="btn btn-xs">Choices</button>
 														<input id="the-answer" type="hidden">
+												</div>
+
+												<div class="input-group col-sm-12">
+													<button id="hint" type="button" class="btn btn-simple btn-xs">Placeholder</button>
+												</div>
+
 											</div>
 
-											<div class="input-group col-sm-12">
-												<button id="hint" type="button" class="btn btn-simple btn-xs">Hint</button>
-											</div>
-
-										</div>
-
-									</form>
-								</div>
+										</form>
+									</div> <!-- / answer form wrapper -->
 								</div>
 							</div>
 						</div>
-
-						</div>
-
 					</div>
 					<!-- End Carousel Card -->
 
-					<div id="start-screen" class="col-md-8 col-md-offset-2 text-center" >
-						<div class="form-group">
-							<button id="start-button" class="btn btn-danger">Start</button>
-						</div>
-					</div>
-
-					<div class="col-md-6">
+					<div class="col-sm-6 col-md-6">
 						<div class="row">
 							<div class="col-md-12">
 								<!-- Tabs with icons on Card -->
@@ -221,7 +233,8 @@
 													</ol></p>
 											</div>
 											<div class="tab-pane active" id="profile">
-												<form id="scorecard" class="form-inline">
+												<form id="scorecard" class="form">
+
 												<div class="input-group">
 													<span class="input-group-addon">
 														<i class="material-icons">account_balance</i>
@@ -281,7 +294,7 @@
 													</label>
 												</div>
 
-												<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+												<button id="show-hint" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
   													Get Hint
 												</button>
 
@@ -344,15 +357,13 @@
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-info btn-simple">Save</button>
+		  <button type="button" class="btn btn-info btn-simple" data-dismiss="modal">Save</button>
 		</div>
 	 </div>
   </div>
 </div>
 
-<select id="data-list" name="data-list">
-
-</select>
+<select id="data-list" name="data-list" style="display:none"></select>
 
 <select id="africa-nations-list" name="africa-nations-list" style="display:none">
 	<option value="Algiers">Algeria</option>
@@ -511,8 +522,6 @@
 			return _answers;
 		}
 
-
-
 		function chooseRandomCountry() {
 			index = Math.floor(Math.random()*(data_length-0+1)+0);
 			return index;
@@ -549,7 +558,7 @@
 			var slider2 = document.getElementById('sliderRefine');
 			var data = loadData(data_list['africa']);
 
-			$('#the-game-screen').hide();
+			//$('#the-game-screen').hide();
 
 			noUiSlider.create(slider2, {
 				start: [ 0 ],
@@ -574,31 +583,14 @@
 				$('#the-answer').val(e.relatedTarget.id);
 				$('#the-guess').focus();
 
-				$('input#the-guess').on('input', function( e ) {
-					// create options list
-					$('#answer-form .input-group:last button').remove();
-					var eles = $("#data-list option[value^=\""+ $(this).val() +"\"]");
-					$(eles).each( function( index, option ) {
-							$('#answer-form .input-group:last').append($('<button>', {
-			        	class: "btn btn-simple btn-xs",
-								html: option.value,
-								fadeIn: true,
-								on: { 'click': function( e ) {
-										e.preventDefault();
-										$('#the-guess').val( $(e.target).html() );
-
-										$('#answer-form').submit();
-									},
-								},
-			    		}));
-					});
-					console.log(eles.length);
-				});
-
 				console.log(e.relatedTarget.id);
 
-				var hint = $('#the-answer').val().substring(0, slider2.noUiSlider.get());
+				var hint = escape( $('#the-answer').val().substring(0, slider2.noUiSlider.get()) );
+				hint = hint.replace(/\s+/g, '_');
 				$('#hint-body').html(hint);
+				$('#answer-form .tooltip-hint').attr('title', hint);
+				$('#answer-form .tooltip-hint').tooltip('fixTitle');
+
 
 				if (e.relatedTarget.id == 'start') {
 					$('#answer-form').fadeOut();
@@ -607,9 +599,37 @@
 
 			});
 
-			$('#scorecard').on('submit'), function(e) {
+			$('#answer-form .tooltip-hint').on('click', function(e) {
+				$('#the-guess').focus();
+				$('#the-guess').val( $('#hint-body').html() );
+			})
+
+			$('input#the-guess').on('input', function( e ) {
+				// create options list
+				$('#answer-form .input-group:last button').remove();
+				var eles = $("#data-list option[value^=\""+ $(this).val() +"\"]");
+				$(eles).each( function( index, option ) {
+						$('#answer-form .input-group:last').append($('<button>', {
+							class: "btn btn-simple btn-xs",
+							html: option.value,
+							fadeIn: true,
+							on: { 'click': function( e ) {
+									e.preventDefault();
+									$('#the-guess').val( $(e.target).html() );
+
+									$('#answer-form').submit();
+								},
+							},
+						}));
+				});
+				console.log(eles.length);
+			});
+
+			//$('show-hint').on('click')
+
+			$('#scorecard').on('submit', function(e) {
 					e.preventDefault();
-			}
+			});
 
 			$('#answer-form').on('submit', function(e) {
 					e.preventDefault();
@@ -647,7 +667,10 @@
 							//var _passed = $('#profile input["name=items_solved"]');
 							//_passed.val(_solved.val() + 1);
 
-							$('#countries-carousel').carousel('next');
+							//$('#countries-carousel').carousel('next');
+
+							index = Math.floor(Math.random()*(data_length-0+1)+0);
+							$('#countries-carousel').carousel(index);
 					} else {
 							var _alert = failAlert();
 							// if we give mutltiple tries, show pass button
