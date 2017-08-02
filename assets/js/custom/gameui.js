@@ -1,3 +1,59 @@
+// at page load/ready
+$().ready(function() {
+
+   var slider2 = document.getElementById('sliderRefine');
+   var data = loadData(data_list['africa']);
+
+   //$('#the-game-screen').hide();
+
+   noUiSlider.create(slider2, {
+      start: [ 0 ],
+      step: 1,
+      range: {
+         'min': [  0 ],
+         'max': [ 10 ]
+      }
+   });
+
+   slider2.noUiSlider.on('change', function( values, handle ) {
+      var hint = $('#the-answer').val().substring(0, values[handle]);
+      $('#hint-body').html(hint);
+      $('#answer-form .tooltip-hint').attr('title', hint);
+      $('#answer-form .tooltip-hint').tooltip('fixTitle');
+      // store for external
+      // $('#slider2-val').val( slider2.noUiSlider.get() );
+   });
+
+   console.log($('#the-answer').val());
+
+   // After a slide
+   $('#countries-carousel').on('slid.bs.carousel', function (e) {
+
+      $('#answer-form .form-group').removeClass('has-success');
+      $('#answer-form .input-group:first').toggleClass('invisible');
+
+      // update_answer
+      $('#the-answer').val(e.relatedTarget.id);
+      $('#the-guess').focus();
+
+      console.log(e.relatedTarget.id);
+
+      var hint = $('#the-answer').val().substring(0, slider2.noUiSlider.get());
+      hint = hint.replace(/\s+/g, '_');
+      $('#hint-body').html(hint);
+      $('#answer-form .tooltip-hint').attr('title', hint);
+      $('#answer-form .tooltip-hint').tooltip('fixTitle');
+
+
+      if (e.relatedTarget.id == 'start') {
+         $('#answer-form').fadeOut();
+         $('#start-button').fadeIn();
+      }
+
+   });
+
+});
+
 // start the game
 $('#start-button').on('click', function(e) {
       e.preventDefault();
@@ -38,32 +94,6 @@ $('input#the-guess').on('input', function( e ) {
          }));
    });
    console.log(eles.length);
-});
-
-// After a slide
-$('#countries-carousel').on('slid.bs.carousel', function (e) {
-
-   $('#answer-form .form-group').removeClass('has-success');
-   $('#answer-form .input-group:first').toggleClass('invisible');
-
-   // update_answer
-   $('#the-answer').val(e.relatedTarget.id);
-   $('#the-guess').focus();
-
-   console.log(e.relatedTarget.id);
-
-   var hint = escape( $('#the-answer').val().substring(0, slider2.noUiSlider.get()) );
-   hint = hint.replace(/\s+/g, '_');
-   $('#hint-body').html(hint);
-   $('#answer-form .tooltip-hint').attr('title', hint);
-   $('#answer-form .tooltip-hint').tooltip('fixTitle');
-
-
-   if (e.relatedTarget.id == 'start') {
-      $('#answer-form').fadeOut();
-      $('#start-button').fadeIn();
-   }
-
 });
 
 // Hint tooltip click
