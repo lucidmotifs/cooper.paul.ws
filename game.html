@@ -12,46 +12,15 @@
 
 	<!--     Fonts and icons     -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/material-kit.css" rel="stylesheet"/>
 
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<style type="text/css">
-		.carousel-inner h3.question-text {
-			margin-bottom: 200px;
-			color: #434343;
-		}
-
-		.invisible {
-			visibility: hidden;
-		}
-
-		#answer-form-wrapper {
-    	position:absolute;
-			border-radius: 5px;
-    	top:20%;
-		}
-
-		#notifications {
-			position: fixed;
-			bottom: 2%;
-			z-index:100;
-		}
-
-		#answer-form-wrapper .row {
-			background-color: rgba(255, 255, 255, .8);
-			padding:0 10%;
-		}
-
-		#answer-form-wrapper .row:first {
-			-moz-border-radius: 15px;
-			border-radius: 15px;
-		}
-	</style>
+	<!-- Custom (non vendor) CSS files -->
+	<link href="assets/css/custom/main.css"/>
 
 </head>
 
@@ -403,81 +372,10 @@
 	<div id="messages"></div>
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-	 <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		  <h4 class="modal-title">Your Hint</h4>
-		</div>
-		<div id="hint-body" class="modal-body">
-		  Far far away
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-info btn-simple" data-dismiss="modal">Save</button>
-		</div>
-	 </div>
-  </div>
-</div>
+<div id="modals"></div>
+
 
 <select id="data-list" name="data-list" style="display:none"></select>
-
-<select id="africa-nations-list" name="africa-nations-list" style="display:none">
-	<option value="Algiers">Algeria</option>
-	<option value="Luanda">Angola</option>
-	<option value="Porto-Novo">Benin</option>
-	<option value="Gaborone">Botswana</option>
-	<option value="Ouagadougou">Burkina Faso</option>
-	<option value="Bujumbura">Burundi</option>
-	<option value="Yaounde">Cameroon</option>
-	<option value="Praia">Cabo Verde</option>
-	<option value="Bangui">Central African Republic</option>
-	<option value="N'Djamena">Chad</option>
-	<option value="Moroni">Comoros</option>
-	<option value="Kinshasa">Democratic Republic of Congo</option>
-	<option value="Brazzaville">Republic of Congo</option>
-	<option value="Yamoussoukro">Cote d'Ivoire</option>
-	<option value="Djibouti">Djibouti</option>
-	<option value="Cairo">Egypt</option>
-	<option value="Malabo">Equatorial Guinea</option>
-	<option value="Asmara">Eritrea</option>
-	<option value="Addis Ababa">Ethiopia</option>
-	<option value="Libreville">Gabon</option>
-	<option value="Banjul">Gambia</option>
-	<option value="Accra">Ghana</option>
-	<option value="Conakry">Guinea</option>
-	<option value="Bissau">Guinea Bissau</option>
-	<option value="Nairobi">Kenya</option>
-	<option value="Maseru">Lesotho</option>
-	<option value="Monrovia">Liberia</option>
-	<option value="Tripoli">Libya</option>
-	<option value="Antananarivo">Madagascar</option>
-	<option value="Lilongwe">Malawi</option>
-	<option value="Bamako">Mali</option>
-	<option value="Nouakchott">Mauritania</option>
-	<option value="Port Louis">Mauritius</option>
-	<option value="Rabat">Morocco</option>
-	<option value="Maputo">Mozambique</option>
-	<option value="Windhoek">Namibia</option>
-	<option value="Niamey">Niger</option>
-	<option value="Abuja">Nigeria</option>
-	<option value="Kigali">Rwanda</option>
-	<option value="Sao Tome">Sao Tome and Principe</option>
-	<option value="Dakar">Senegal</option>
-	<option value="Victoria">Seychelles</option>
-	<option value="Freetown">Sierra Leone</option>
-	<option value="Pretoria">South Africa</option>
-	<option value="Juba">South Sudan</option>
-	<option value="Khartoum">Sudan</option>
-	<option value="Lobamba">Swaziland</option>
-	<option value="Dar es Salaam">Tanzania</option>
-	<option value="Lomé">Togo</option>
-	<option value="Tunis">Tunisia</option>
-	<option value="Kampala">Uganda</option>
-	<option value="Lusaka">Zambia</option>
-	<option value="Harare">Zimbabwe</option>
-</select>
 
 </body>
 	<!--   Core JS Files   -->
@@ -491,6 +389,12 @@
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 	<script src="assets/js/nouislider.min.js" type="text/javascript"></script>
 
+	<!-- Custom memorize js -->
+	<script>
+  $(function(){
+    $("#modals").load("templates/modals/hint.html");
+  });
+  </script>
 	<script src="assets/js/custom/gamesrc.js"></script>
 	<script src="assets/js/custom/gameui.js" type="text/javascript"></script>
 

@@ -1,5 +1,3 @@
-var data_length = $('#africa-nations-list').children().length;
-
 function successAlert() {
    var outerDiv = $("<div></div>").attr('id', "success-message").addClass("alert alert-success");
    var container = $("<div></div>").addClass("container-fluid");
@@ -44,53 +42,106 @@ function failAlert() {
    return $(outerDiv)
 }
 
-var _answers = Array();
+function requestGameData( gameid ) {
+  var json = null;
 
-function loadData( data ) {
-   // load data into carousel
-   $(data).find('option').each(function(index, element) {
-      var normCountry = escape(element.text.replace(/\s+/g, '_'));
-      var normCity =  escape(element.value.replace(/\s+/g, '_'));
+  // make the request
+  $.ajax( {
+    async: false,
+    global: false,
+    url: "data/capitals/game.json",
+    dataType: "json",
 
-      _answers.push(normCity);
+    success: function( data ) {
+      json = data;
+      console.log(json);
+    },
 
-      var _icon = $("<i></i>").addClass("material-icons")
-                                          .html("location_on");
-      var _h3 = $("<h2></h2>").addClass("question-text")
-                                          .append($(_icon));
-      var _p = $("<p></p>").attr('id', "possibilities");
+    complete: function( data, status ) {
+      console.log(status)
+    }
+  });
 
-      _h3.html(_h3.html() + ' ' + element.text);
+  return json;
+}
+let gameData = requestGameData();
 
-      var _caption = $("<div></div>").addClass("carousel-caption");
-      var _img = $("<img></img>").attr('src', "assets/img/countries/Africa/" + normCountry + "/" + normCountry + "02.png")
-                                              .prop('alt', element.text);
-      var _item = $("<div></div>").attr('id', normCity)
-                                          .addClass("item");
+function requestAnswers( dataset ) {
+  // temp code
+  var json = null;
 
-      //var _answerForm = $('#answer-box').html;
-      $(_caption).append($(_h3));
-      $(_caption).append($(_p));
-      $(_item).append($(_img));
-      $(_item).append($(_caption));
+  // make the request
+  $.ajax( {
+    async: false,
+    global: false,
+    url: "data/" + gameData['short_name'] + "/" + dataset['label'] + ".json",
+    dataType: "json",
 
-      $('.carousel-inner').append($(_item));
+    success: function( data ) {
+      json = data['answers'];
+      console.log(json);
+    },
 
-      $('#data-list').append($('<option>', {
-         value: element.value,
-         text : element.text
-      }));
+    complete: function( data, status ) {
+      console.log(status)
+    }
+  });
 
-   });
-
-   $('.carousel-inner .item:first').addClass('active');
-   $('#countries-carousel').carousel(0);
-
-   return _answers;
+  return json;
 }
 
-function chooseRandomCountry() {
-   index = Math.floor(Math.random()*(data_length-0+1)+0);
+let _answers = Array();
+function loadData( data ) {
+  // load data into carousel
+  //$(data).find('option').each(function(index, element) {
+  for ( var i = 0; i < data.length; i++ ) {
+    // normalize the data
+    var normalizedQuestion = escape(data[i]['question'].replace(/\s+/g, '_'));
+    var normalizedAnswer =  escape(data[i]['answer'].replace(/\s+/g, '_'));
+
+    // push answer values into Array
+    _answers.push(normalizedAnswer);
+
+    var _icon = $("<i></i>").addClass("material-icons")
+                            .html("location_on");
+
+    var _header = $("<h2></h2>").addClass("question-text")
+                                .append($(_icon))
+                                .append(' ' + data[i]['question']);
+
+    var _p = $("<p></p>").attr('id', "possibilities");
+
+    var _caption = $("<div></div>").addClass("carousel-caption");
+
+    var _img = $("<img></img>").attr('src', "assets/img/countries/Africa/" + normalizedQuestion + "/" + normalizedQuestion + "02.png")
+                               .prop('alt', data[i]['question']);
+
+    var _item = $("<div></div>").attr('id', normalizedAnswer)
+                                .addClass("item");
+
+    //var _answerForm = $('#answer-box').html;
+    $(_caption).append($(_header));
+    $(_caption).append($(_p));
+    $(_item).append($(_img));
+    $(_item).append($(_caption));
+
+    $('.carousel-inner').append($(_item));
+
+    $('#data-list').append( $('<option>', {
+      value: data[i]['answer'],
+      text : data[i]['question']
+    }));
+
+  }
+
+  $('.carousel-inner .item:first').addClass('active');
+  $('#countries-carousel').carousel(0);
+
+  return _answers;
+}
+
+function chooseRandomQuestion() {
+   index = Math.floor(Math.random()*(_answers.length-0+1)+0);
    return index;
 }
 
@@ -103,9 +154,15 @@ function checkAnswer(sender, guess, answer) {
    } else {
       return ans == guess;
    }
+}
 
-   // debug
+function updateHint() {
+  // update the hint text
+  var hint = $('#the-answer').val().substring(0, slider2.noUiSlider.get());
 
+  $('#hint-body').html(hint);
+  $('#answer-form .tooltip-hint').attr('title', hint);
+  $('#answer-form .tooltip-hint').tooltip('fixTitle');
 }
 
 var data_list = {
