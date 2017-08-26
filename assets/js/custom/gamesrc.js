@@ -1,51 +1,15 @@
 let answered = Array();
 let correct = Array();
 let incorrect = Array();
-
+var theScore = 0;
 var indexOf = Array.prototype.indexOf;
 
 function successAlert() {
-   var outerDiv = $("<div></div>").attr('id', "success-message").addClass("alert alert-success");
-   var container = $("<div></div>").addClass("container-fluid");
-   var iconBox = $("<div></div>").addClass("alert-icon");
-   var icon = $("<i></i>").addClass("material-icons").html("check");
-
-   var button = $("<button></button>").attr('type', "button").addClass("close");
-   button.attr('data-dismiss', "alert")
-            .attr('aria-label', "Close");
-   button.html("<span aria-hidden='true'><i class='material-icons'>clear</i></span>")
-
-   var message = "<b>Success!</b> You gained 10 points";
-
-   $(iconBox).append($(icon));
-   $(container).html(message);
-   $(container).append($(iconBox));
-   $(container).append($(button));
-   $(outerDiv).append($(container));
-
-   return $(outerDiv)
+   UIkit.notification('Correct! You gained 10 points', 'success');
 }
 
 function failAlert() {
-   var outerDiv = $("<div></div>").attr('id', "fail-message").addClass("alert alert-danger");
-   var container = $("<div></div>").addClass("container-fluid");
-   var iconBox = $("<div></div>").addClass("alert-icon");
-   var icon = $("<i></i>").addClass("material-icons").html("error_outline");
-
-   var button = $("<button></button>").attr('type', "button").addClass("close");
-   button.attr('data-dismiss', "alert")
-         .attr('aria-label', "Close");
-   button.html("<span aria-hidden='true'><i class='material-icons'>clear</i></span>")
-
-   var message = "<b>Error!</b> Wrong answer, try again or pass";
-
-   $(iconBox).append($(icon));
-   $(container).html(message);
-   $(container).append($(iconBox));
-   $(container).append($(button));
-   $(outerDiv).append($(container));
-
-   return $(outerDiv)
+   UIkit.notification('Wrong answer! Try again', 'danger');
 }
 
 function requestGameData( gameid ) {
@@ -155,6 +119,11 @@ function loadData( data ) {
   return _answers;
 }
 
+function changeScore(val) {
+  theScore = theScore + val;
+  $('.the-score').html(theScore);
+}
+
 function chooseRandomQuestion() {
    index = Math.floor(Math.random()*(questions.length)+1);
    return index-1;
@@ -185,27 +154,44 @@ function submitAnswer(el) {
    } else {
       doWrongAnswer(el);
    }
+   nextQuestion();
+
+   var numTiles = $("#answer-grid").children().length;
+   $("#answer-grid").fadeOut(1000, function() { updateAnswerTiles( numTiles ); });
 }
 
 function doCorrectAnswer(e) {
-
+  successAlert();
   console.log('correct');
 
   // play animation
   $(e).addClass("uk-animation-reverse uk-animation-scale-down");
 
   // change score etc...
-  nextQuestion();
+  changeScore(10);
 
-  var numTiles = $("#answer-grid").children().length;
-  $("#answer-grid").fadeOut(1000, function() { updateAnswerTiles( numTiles ); });
+  // add to answered and correct
+  answered.push($currQuestion);
+  correct.push($currQuestion);
+
+  $('.answered').html(answered.length);
+  $('.correct').html(correct.length);
 }
 
 function doWrongAnswer(e) {
-   console.log('incorrect');
+  failAlert();
+  console.log('incorrect');
 
-   $(e).addClass("uk-animation-shake");
-   setTimeout( function() { $(e).removeClass("uk-animation-shake"); }, 200 );
+  $(e).addClass("uk-animation-shake");
+  setTimeout( function() { $(e).removeClass("uk-animation-shake"); }, 200 );
+
+  changeScore(-1);
+
+  answered.push($currQuestion);
+  incorrect.push($currQuestion);
+
+  $('.answered').html(answered.length);
+  //$('.incorrect').html(incorrect.length);
 }
 
 var $currQuestion = "";
@@ -260,7 +246,7 @@ function updateAnswerTiles(nTiles) {
       $("#answer-grid").append(buildAnswerTile(a));
    });
 
-   $("#answer-grid").fadeIn(2000);
+   $("#answer-grid").fadeIn(1000);
    console.log(questions.length);
    console.log(answers.length);
 }
@@ -272,7 +258,8 @@ function buildAnswerTile(a) {
       value: a,
       html: a,
       on: { 'click': function( e ) {
-            submitAnswer(e.parentNode);
+            //$(e.target).parent().trigger('click');
+            return
          }
       }
    });
