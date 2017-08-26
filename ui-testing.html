@@ -79,12 +79,21 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="uk-panel uk-margin-medium">
 						<h3>Answer display testing GUI</h3>
+						<h4>Current Question: <span class="question-text"></span></h4>
 					</div>
 
 					<div id="answer-grid" class="uk-grid-match uk-grid-small uk-child-width-1-4@m" uk-grid>
 						<!-- answer tiles go here -->
 
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="clock-display" class="uk-section uk-section-primary uk-preserve-color uk-section-large">
+			<div class="uk-container">
+				<div uk-countdown="date: 2017-09-02T19:12:39+00:00">
+					<span class="uk-countdown-number uk-countdown-seconds"></span>
 				</div>
 			</div>
 		</section>

@@ -156,8 +156,8 @@ function loadData( data ) {
 }
 
 function chooseRandomQuestion() {
-   index = Math.floor(Math.random()*(_questions.length)+1);
-   return index;
+   index = Math.floor(Math.random()*(questions.length)+1);
+   return index-1;
 }
 
 function checkAnswer(sender, guess, ans) {
@@ -175,7 +175,8 @@ function checkAnswer(sender, guess, ans) {
 function submitAnswer(el) {
    // the guess should match the ID of the
    // pressed element
-   var guess = el.id;
+   var guess = $(el).attr('value');
+   console.log(guess);
    // set by 'setQuestion()'
    var ans = $currAnswer;
 
@@ -188,10 +189,19 @@ function submitAnswer(el) {
 
 function doCorrectAnswer(e) {
    console.log('correct');
+
+   // play animation
+   $(e).addClass("uk-animation-reverse uk-animation-scale-down");
+
+   // change score etc...
+   setTimeout( function() { setQuestion(); }, 1000 );
 }
 
 function doWrongAnswer(e) {
    console.log('incorrect');
+
+   $(e).addClass("uk-animation-shake");
+   setTimeout( function() { $(e).removeClass("uk-animation-shake"); }, 1000 );
 }
 
 var $currQuestion = "";
@@ -203,16 +213,24 @@ function setQuestion() {
 
    // remove the question and answer
    $currQuestion = questions.splice(i, 1)[0];
-   $currAnswer = answers.splice(i, 1)[0];
+   _questions.splice(i, 1);
+   $(".question-text").html($currQuestion);
 
+   $currAnswer = answers.splice(i, 1)[0];
+   _answers.splice(i, 1);
+
+   updateAnswerTiles($("#answer-grid").children().length);
    console.log($currAnswer);
 }
 
 function updateAnswerTiles(nTiles) {
    // ensure there are enough answer to accomidate tiles
    if (questions.length < nTiles) {
-      nTiles = answer.length;
+      nTiles = answers.length;
    }
+
+   // animate and remove current objects
+   $("#answer-grid").fadeOut(300).empty();
 
    var used = Array();
    var tobuild = Array();
@@ -223,16 +241,19 @@ function updateAnswerTiles(nTiles) {
       // add question to chosen if not already there
       if (indexOf.call(used, q) > -1) {
          // found match, pick another
-         i--;
+         i = i-1;
          continue;
       } else {
          used.push(q);
       }
+      var ans = answers[q];
+      if (typeof ans == 'undefined') {
+
+      }
 
       tobuild.push(answers[q]);
-
    }
-
+   console.log(tobuild);
    // insert the correct answer at a random location
    var index = Math.floor(Math.random()*(nTiles)+0);
    tobuild.splice(index, 1, $currAnswer);
@@ -240,19 +261,28 @@ function updateAnswerTiles(nTiles) {
    $(tobuild).each( function(k,a) {
       $("#answer-grid").append(buildAnswerTile(a));
    });
+
+   $("#answer-grid").fadeIn(300);
+   console.log(questions.length);
+   console.log(answers.length);
 }
 
 function buildAnswerTile(a) {
    // build the element to insert
    $text = $('<p>', {
       class: "uk-text-muted uk-text-center",
-      html: a
+      value: a,
+      html: a,
+      on: { 'click': function( e ) {
+            submitAnswer(e.target);
+         }
+      }
    });
 
    $card = $('<div>', {
-      class: "uk-card uk-card-body uk-card-default uk-card-hover uk-text-center uk-animation-fade uk-animation-fast",
+      class: "uk-card uk-card-body uk-card-default uk-card-hover uk-text-center",
       html: $text,
-      id: a,
+      value: a,
       on: { 'click': function( e ) {
             submitAnswer(e.target);
          }
@@ -260,7 +290,6 @@ function buildAnswerTile(a) {
    });
 
    $div = $('<div>', {
-      class: "uk-animation-toggle",
       html: $card
    });
 
