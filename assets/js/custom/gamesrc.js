@@ -79,7 +79,7 @@ function requestAnswers( dataset ) {
 
     success: function( data ) {
       json = data['answers'];
-      console.log(json);
+      console.log(data);
     },
 
     complete: function( data, status ) {
@@ -91,6 +91,11 @@ function requestAnswers( dataset ) {
 }
 
 let _answers = Array();
+let answers = Array();
+
+let _questions = Array();
+let questions = Array();
+
 function loadData( data ) {
   // load data into carousel
   //$(data).find('option').each(function(index, element) {
@@ -101,6 +106,10 @@ function loadData( data ) {
 
     // push answer values into Array
     _answers.push(normalizedAnswer);
+    answers.push(data[i]['answer']);
+
+    _questions.push(normalizedQuestion);
+    questions.push(data[i]['question']);
 
     var _icon = $("<i></i>").addClass("material-icons")
                             .html("location_on");
@@ -141,7 +150,7 @@ function loadData( data ) {
 }
 
 function chooseRandomQuestion() {
-   index = Math.floor(Math.random()*(_answers.length-0+1)+0);
+   index = Math.floor(Math.random()*(_questions.length-0+1)+0);
    return index;
 }
 
