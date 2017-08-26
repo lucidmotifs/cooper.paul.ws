@@ -84,7 +84,6 @@
 
 					<div id="answer-grid" class="uk-grid-match uk-grid-small uk-child-width-1-4@m" uk-grid>
 						<!-- answer tiles go here -->
-
 					</div>
 				</div>
 			</div>
@@ -102,7 +101,7 @@
 		// at page load/ready
 		$().ready(function() {
 			var data = loadData( requestAnswers( gameData["answer_datasets"][0] ) );
-			setQuestion();
+			nextQuestion();
 
 			const numAnswerTiles = 12;
 			updateAnswerTiles(numAnswerTiles);

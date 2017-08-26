@@ -188,28 +188,31 @@ function submitAnswer(el) {
 }
 
 function doCorrectAnswer(e) {
-   console.log('correct');
 
-   // play animation
-   $(e).addClass("uk-animation-reverse uk-animation-scale-down");
+  console.log('correct');
 
-   // change score etc...
-   setTimeout( function() { setQuestion(); }, 1000 );
+  // play animation
+  $(e).addClass("uk-animation-reverse uk-animation-scale-down");
+
+  // change score etc...
+  nextQuestion();
+
+  var numTiles = $("#answer-grid").children().length;
+  $("#answer-grid").fadeOut(1000, function() { updateAnswerTiles( numTiles ); });
 }
 
 function doWrongAnswer(e) {
    console.log('incorrect');
 
    $(e).addClass("uk-animation-shake");
-   setTimeout( function() { $(e).removeClass("uk-animation-shake"); }, 1000 );
+   setTimeout( function() { $(e).removeClass("uk-animation-shake"); }, 200 );
 }
 
 var $currQuestion = "";
 var $currAnswer = "";
-function setQuestion() {
+function nextQuestion() {
    // get a random index from the questions Array
    var i = chooseRandomQuestion();
-   console.log(i);
 
    // remove the question and answer
    $currQuestion = questions.splice(i, 1)[0];
@@ -219,18 +222,18 @@ function setQuestion() {
    $currAnswer = answers.splice(i, 1)[0];
    _answers.splice(i, 1);
 
-   updateAnswerTiles($("#answer-grid").children().length);
    console.log($currAnswer);
 }
 
 function updateAnswerTiles(nTiles) {
+
+    // animate and remove current objects
+    $("#answer-grid").empty();
+
    // ensure there are enough answer to accomidate tiles
    if (questions.length < nTiles) {
       nTiles = answers.length;
    }
-
-   // animate and remove current objects
-   $("#answer-grid").fadeOut(300).empty();
 
    var used = Array();
    var tobuild = Array();
@@ -246,11 +249,6 @@ function updateAnswerTiles(nTiles) {
       } else {
          used.push(q);
       }
-      var ans = answers[q];
-      if (typeof ans == 'undefined') {
-
-      }
-
       tobuild.push(answers[q]);
    }
    console.log(tobuild);
@@ -262,7 +260,7 @@ function updateAnswerTiles(nTiles) {
       $("#answer-grid").append(buildAnswerTile(a));
    });
 
-   $("#answer-grid").fadeIn(300);
+   $("#answer-grid").fadeIn(2000);
    console.log(questions.length);
    console.log(answers.length);
 }
@@ -274,7 +272,7 @@ function buildAnswerTile(a) {
       value: a,
       html: a,
       on: { 'click': function( e ) {
-            submitAnswer(e.target);
+            submitAnswer(e.parentNode);
          }
       }
    });
@@ -284,9 +282,9 @@ function buildAnswerTile(a) {
       html: $text,
       value: a,
       on: { 'click': function( e ) {
-            submitAnswer(e.target);
-         }
-      }
+              submitAnswer(e.target);
+            }
+          }
    });
 
    $div = $('<div>', {
