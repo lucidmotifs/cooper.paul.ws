@@ -1,3 +1,9 @@
+let answered = Array();
+let correct = Array();
+let incorrect = Array();
+
+var indexOf = Array.prototype.indexOf;
+
 function successAlert() {
    var outerDiv = $("<div></div>").attr('id', "success-message").addClass("alert alert-success");
    var container = $("<div></div>").addClass("container-fluid");
@@ -150,19 +156,115 @@ function loadData( data ) {
 }
 
 function chooseRandomQuestion() {
-   index = Math.floor(Math.random()*(_questions.length-0+1)+0);
+   index = Math.floor(Math.random()*(_questions.length)+1);
    return index;
 }
 
-function checkAnswer(sender, guess, answer) {
+function checkAnswer(sender, guess, ans) {
    //alert( $('#settings input.ignore-case')[0].checked );
-   ans = answer.val().replace(/\s+/g, '_');
+   //ans = answer.val().replace(/\s+/g, '_');
+   return ans.toLowerCase() == guess.toLowerCase();
 
    if ( $('#settings input.ignore-case')[0].checked == true ) {
       return ans.toLowerCase() == guess.toLowerCase();
    } else {
       return ans == guess;
    }
+}
+
+function submitAnswer(el) {
+   // the guess should match the ID of the
+   // pressed element
+   var guess = el.id;
+   // set by 'setQuestion()'
+   var ans = $currAnswer;
+
+   if (checkAnswer(el, guess, ans)) {
+      doCorrectAnswer(el);
+   } else {
+      doWrongAnswer(el);
+   }
+}
+
+function doCorrectAnswer(e) {
+   console.log('correct');
+}
+
+function doWrongAnswer(e) {
+   console.log('incorrect');
+}
+
+var $currQuestion = "";
+var $currAnswer = "";
+function setQuestion() {
+   // get a random index from the questions Array
+   var i = chooseRandomQuestion();
+   console.log(i);
+
+   // remove the question and answer
+   $currQuestion = questions.splice(i, 1)[0];
+   $currAnswer = answers.splice(i, 1)[0];
+
+   console.log($currAnswer);
+}
+
+function updateAnswerTiles(nTiles) {
+   // ensure there are enough answer to accomidate tiles
+   if (questions.length < nTiles) {
+      nTiles = answer.length;
+   }
+
+   var used = Array();
+   var tobuild = Array();
+   for ( var i=0; i < nTiles; i++ ) {
+      // pick a random answer from
+      var q = chooseRandomQuestion();
+
+      // add question to chosen if not already there
+      if (indexOf.call(used, q) > -1) {
+         // found match, pick another
+         i--;
+         continue;
+      } else {
+         used.push(q);
+      }
+
+      tobuild.push(answers[q]);
+
+   }
+
+   // insert the correct answer at a random location
+   var index = Math.floor(Math.random()*(nTiles)+0);
+   tobuild.splice(index, 1, $currAnswer);
+
+   $(tobuild).each( function(k,a) {
+      $("#answer-grid").append(buildAnswerTile(a));
+   });
+}
+
+function buildAnswerTile(a) {
+   // build the element to insert
+   $text = $('<p>', {
+      class: "uk-text-muted uk-text-center",
+      html: a
+   });
+
+   $card = $('<div>', {
+      class: "uk-card uk-card-body uk-card-default uk-card-hover uk-text-center uk-animation-fade uk-animation-fast",
+      html: $text,
+      id: a,
+      on: { 'click': function( e ) {
+            submitAnswer(e.target);
+         }
+      }
+   });
+
+   $div = $('<div>', {
+      class: "uk-animation-toggle",
+      html: $card
+   });
+
+   return $div;
 }
 
 function updateHint() {

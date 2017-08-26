@@ -93,41 +93,10 @@
 		// at page load/ready
 		$().ready(function() {
 			var data = loadData( requestAnswers( gameData["answer_datasets"][0] ) );
-			var indexOf = Array.prototype.indexOf;
-			var chosen = Array();
+			setQuestion();
+
 			const numAnswerTiles = 12;
-
-			for ( var i=0; i < numAnswerTiles; i++ ) {
-				// pick a random answer from
-				var q = chooseRandomQuestion();
-
-				// add question to chosen if not already there
-				if (indexOf.call(chosen, q) > -1) {
-					// found match, pick another
-					i--;
-					continue;
-				} else {
-					chosen.push(q);
-				}
-
-				var a = _answers[q];
-
-				$text = $('<p>', {
-		      class: "uk-text-muted",
-		      html: a
-				});
-
-				$card = $('<div>', {
-		      class: "uk-card uk-card-body uk-card-default uk-card-hover uk-text-center",
-		      html: $text
-				});
-
-				$div = $('<div>', {
-					html: $card
-				});
-
-				$("#answer-grid").append($div);
-			}
+			updateAnswerTiles(numAnswerTiles);
 		});
 		</script>
 
