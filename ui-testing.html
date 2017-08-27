@@ -40,71 +40,67 @@
 </head>
 
 <body class="index-page">
-  <!-- Navbar -->
-  <nav class="navbar navbar-primary navbar-fixed-top">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="http://pcooper.ws">pcooper.ws</a>
-      </div>
+	<!-- Navbar -->
+	<nav class="navbar navbar-primary navbar-fixed-top">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://pcooper.ws">pcooper.ws</a>
+			</div>
 
-      <div class="collapse navbar-collapse" id="navigation-example">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="https://www.facebook.com/paulcooper" target="_blank" class="btn btn-simple btn-white btn-just-icon">
-              <i class="fa fa-facebook-square"></i>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/pcooper42" target="_blank" class="btn btn-simple btn-white btn-just-icon">
-              <i class="fa fa-instagram"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- End Navbar -->
+			<div class="collapse navbar-collapse" id="navigation-example">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="https://www.facebook.com/paulcooper" target="_blank" class="btn btn-simple btn-white btn-just-icon">
+							<i class="fa fa-facebook-square"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/pcooper42" target="_blank" class="btn btn-simple btn-white btn-just-icon">
+							<i class="fa fa-instagram"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- End Navbar -->
 
 	<div class="wrapper">
 
 		<section id="answer-display" class="uk-section uk-section-primary uk-preserve-color uk-section-large">
 			<div class="uk-container">
-				<div class="col-md-8 col-md-offset-2">
-					<div class="uk-panel uk-margin-medium">
-						<h3>Answer display testing GUI</h3>
-						<h4>Current Question: <span class="question-text"></span></h4>
-						<h4>Answered: <span class="answered"></span>(<span class="correct"></span> correct)</h4>
-						<h4>Score: <span class="the-score"></span></h4>
-					</div>
+				<div class="uk-flex uk-flex-wrap uk-width-1-1">
+					<div class="uk-width-2-3">
+						<div class="uk-panel uk-margin-medium">
+							<h2 class="uk-h3">1. Answer Tiles</h3>
+							<h4 class="uk-h5 uk-margin-small">Question: <span class="the-question"></span></h4>
+							<h4 class="uk-h5 uk-margin-small">Answer: <span class="the-answer"></span></h4>
+						</div>
 
-					<div id="answer-grid" class="uk-grid-match uk-grid-small uk-child-width-1-4@m" uk-grid>
-						<!-- answer tiles go here -->
+						<ul uk-accordion>
+    						<li>
+        						<h3 class="uk-accordion-title">Show Details</h3>
+        						<div class="uk-accordion-content">
+									<h4>Answered: <span class="answered"></span>(<span class="correct"></span> correct)</h4>
+									<h4>Score: <span class="the-score"></span></h4>
+        						</div>
+    						</li>
+						</ul>
+
+						<div id="answer-grid" class="uk-grid-match uk-grid-small uk-child-width-1-4@m" uk-grid>
+							<!-- answer tiles go here -->
+						</div>
 					</div>
 				</div>
-
-				<div class="uk-width-1-3 uk-padding-large uk-margin-small">
-					<div class="uk-grid-small uk-child-width-auto" uk-grid uk-countdown="date: 2017-09-02T22:44:46+00:00">
-				    <div>
-				        <div class="uk-countdown-number uk-countdown-minutes"></div>
-				        <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Minutes</div>
-				    </div>
-				    <div class="uk-countdown-separator">:</div>
-				    <div>
-				        <div class="uk-countdown-number uk-countdown-seconds"></div>
-				        <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds</div>
-				    </div>
-					</div>
-				</div>
-			</div>
+			</div> <!-- end container -->
 		</section>
-
 		<script>
 		// at page load/ready
 		$().ready(function() {
@@ -113,6 +109,84 @@
 
 			const numAnswerTiles = 12;
 			updateAnswerTiles(numAnswerTiles);
+		});
+		</script>
+
+		<section id="countdown-display" class="uk-section uk-section-secondary uk-section-medium">
+			<div class="uk-container uk-container-small">
+				<div class="uk-panel uk-margin-medium">
+					<h2 class="uk-h3">2. Countdown</h3>
+				</div>
+				<div id="gametime" class="uk-grid-small uk-child-width-auto" uk-grid>
+					<div>
+						<div class="uk-countdown-number uk-countdown-minutes"></div>
+						<div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Minutes</div>
+					</div>
+					<div class="uk-countdown-separator">:</div>
+					<div>
+						<div class="uk-countdown-number uk-countdown-seconds"></div>
+						<div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds</div>
+					</div>
+				</div>
+				<div class="uk-margin-top">
+					<button class="uk-button uk-button-secondary timer-start">Start</button>
+					<button class="uk-button uk-button-secondary timer-stop">Stop</button>
+					<button class="uk-button uk-button-secondary timer-reset">Restart</button>
+				</div>
+			</div>
+		</section>
+		<script>
+		let time = new Date();
+		var timer = 0;
+		var countdown = UIkit.countdown($("#gametime"), { date: time.toISOString() });
+
+		$().ready(function() {
+			// set the countdown to 2 minutes
+			countdown = resetCountdown(2);
+
+			$('.timer-start').on('click', function() { startCountdown(); });
+			$('.timer-stop').on('click', function() { stopCountdown(); });
+			$('.timer-reset').on('click', function() { resetCountdown(2); });
+		});
+
+		function startCountdown() {
+			return countdown.start();
+		}
+
+		function stopCountdown() {
+			return countdown.stop();
+		}
+
+		function resetCountdown(minutes) {
+			var newtime = Date.now() + minutes * 60 * 1000;
+			time.setTime(newtime);
+
+			countdown.$reset({ date: time.toISOString() });
+			timer = setTimeout(endCountdown, minutes * 60 * 1000);
+
+			return countdown;
+		}
+
+		function endCountdown() {
+			console.log("Countdown Done");
+		}
+		</script>
+
+		<section id="progress-display" class="uk-section uk-section-secondary uk-section-medium">
+			<div class="uk-container">
+				<div class="uk-panel uk-margin-medium">
+					<h2 class="uk-h3">3. Progress Display</h3>
+				</div>
+
+				<progress id="progressbar" class="uk-progress" value="0" max="0"></progress>
+			</div>
+		</section>
+		<script>
+		$().ready(function() {
+			$("#progressbar").attr("max", questions.length);
+			$( document ).on("game:updated", function() {
+				$("#progressbar").attr("value", answered.length);
+			});
 		});
 		</script>
 

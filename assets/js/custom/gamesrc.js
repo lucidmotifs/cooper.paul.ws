@@ -1,8 +1,12 @@
+// Custom Events
+var updatestate = jQuery.Event( "updatestate" );
+
 let answered = Array();
 let correct = Array();
 let incorrect = Array();
 var theScore = 0;
 var indexOf = Array.prototype.indexOf;
+
 
 function successAlert() {
    UIkit.notification('Correct! You gained 10 points', 'success');
@@ -60,6 +64,8 @@ function requestAnswers( dataset ) {
   return json;
 }
 
+
+/** Data Loading - move this to gamedata.js and handle all io there **/
 let _answers = Array();
 let answers = Array();
 
@@ -203,11 +209,14 @@ function nextQuestion() {
    // remove the question and answer
    $currQuestion = questions.splice(i, 1)[0];
    _questions.splice(i, 1);
-   $(".question-text").html($currQuestion);
+   $(".the-question").html($currQuestion);
 
    $currAnswer = answers.splice(i, 1)[0];
    _answers.splice(i, 1);
+   $(".the-answer").html($currAnswer);
 
+   // trigger global event
+   $( document ).trigger( "game:updated" );
    console.log($currAnswer);
 }
 
@@ -247,21 +256,13 @@ function updateAnswerTiles(nTiles) {
    });
 
    $("#answer-grid").fadeIn(1000);
-   console.log(questions.length);
-   console.log(answers.length);
 }
 
 function buildAnswerTile(a) {
    // build the element to insert
    $text = $('<p>', {
       class: "uk-text-muted uk-text-center",
-      value: a,
-      html: a,
-      on: { 'click': function( e ) {
-            //$(e.target).parent().trigger('click');
-            return
-         }
-      }
+      html: a
    });
 
    $card = $('<div>', {
@@ -269,7 +270,7 @@ function buildAnswerTile(a) {
       html: $text,
       value: a,
       on: { 'click': function( e ) {
-              submitAnswer(e.target);
+              submitAnswer(e.currentTarget);
             }
           }
    });
@@ -289,9 +290,3 @@ function updateHint() {
   $('#answer-form .tooltip-hint').attr('title', hint);
   $('#answer-form .tooltip-hint').tooltip('fixTitle');
 }
-
-var data_list = {
-   'africa': '#africa-nations-list',
-   'europe': '#europe-nations-list',
-   ///etc.
-};

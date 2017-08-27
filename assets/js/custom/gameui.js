@@ -50,6 +50,10 @@ $().ready(function() {
       $('#start-button').fadeIn();
     }
   });
+
+  /*** Game Timer Function ***/
+
+
 });
 
 // start the game
@@ -92,7 +96,7 @@ $('input#the-guess').on('input', function( e ) {
       },
     }));
   });
-  console.log(eles.length);
+
 });
 
 // Hint tooltip click
