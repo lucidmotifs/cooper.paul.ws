@@ -74,24 +74,24 @@
 
 	<div class="wrapper">
 
-		<section id="answer-display" class="uk-section uk-section-primary uk-preserve-color uk-section-large">
+		<section id="answer-display" class="uk-section uk-section-primary uk-preserve-color uk-section-medium">
 			<div class="uk-container">
 				<div class="uk-flex uk-flex-wrap uk-width-1-1">
 					<div class="uk-width-2-3">
 						<div class="uk-panel uk-margin-medium">
-							<h2 class="uk-h3">1. Answer Tiles</h3>
+							<h2 class="uk-h3">1. Answer Tiles</h2>
 							<h4 class="uk-h5 uk-margin-small">Question: <span class="the-question"></span></h4>
 							<h4 class="uk-h5 uk-margin-small">Answer: <span class="the-answer"></span></h4>
 						</div>
 
 						<ul uk-accordion>
-    						<li>
-        						<h3 class="uk-accordion-title">Show Details</h3>
-        						<div class="uk-accordion-content">
-									<h4>Answered: <span class="answered"></span>(<span class="correct"></span> correct)</h4>
-									<h4>Score: <span class="the-score"></span></h4>
-        						</div>
-    						</li>
+  						<li>
+      					<h3 class="uk-accordion-title">Show Details</h3>
+      					<div class="uk-accordion-content">
+								<h4>Answered: <span class="answered"></span>(<span class="correct"></span> correct)</h4>
+								<h4>Score: <span class="the-score"></span></h4>
+      						</div>
+  						</li>
 						</ul>
 
 						<div id="answer-grid" class="uk-grid-match uk-grid-small uk-child-width-1-4@m" uk-grid>
@@ -115,7 +115,7 @@
 		<section id="countdown-display" class="uk-section uk-section-secondary uk-section-medium">
 			<div class="uk-container uk-container-small">
 				<div class="uk-panel uk-margin-medium">
-					<h2 class="uk-h3">2. Countdown</h3>
+					<h2 class="uk-h3">2. Countdown</h2>
 				</div>
 				<div id="gametime" class="uk-grid-small uk-child-width-auto" uk-grid>
 					<div>
@@ -173,9 +173,9 @@
 		</script>
 
 		<section id="progress-display" class="uk-section uk-section-secondary uk-section-medium">
-			<div class="uk-container">
+			<div class="uk-container uk-container-small">
 				<div class="uk-panel uk-margin-medium">
-					<h2 class="uk-h3">3. Progress Display</h3>
+					<h2 class="uk-h3">3. Progress Display</h2>
 				</div>
 
 				<progress id="progressbar" class="uk-progress" value="0" max="0"></progress>
@@ -189,6 +189,23 @@
 			});
 		});
 		</script>
+
+		<section id="media-display" class="uk-section uk-section-secondary uk-section-medium">
+			<div class="uk-container uk-container-small">
+				<div class="uk-panel uk-margin-medium">
+					<h2 class="uk-h3">4. Media Switch</h2>
+				</div>
+
+				<div class="uk-cover-container uk-height-large uk-width-1-1 uk-inline">
+    			<img src="assets/img/countries/Africa/Algeria/Algeria02.png" alt="" uk-cover>
+					<div id="" class="uk-grid-small uk-child-width-auto uk-overlay uk-overlay-default uk-position-bottom uk-light" uk-grid>
+						<div>
+							<h4>Content</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
 		<footer class="footer">
 			<div class="container">
