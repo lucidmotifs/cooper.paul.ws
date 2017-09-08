@@ -163,7 +163,13 @@ function submitAnswer(el) {
    nextQuestion();
 
    var numTiles = $("#answer-grid").children().length;
-   $("#answer-grid").fadeOut(1000, function() { updateAnswerTiles( numTiles ); });
+   $("#answer-grid").fadeOut(500, function() { updateAnswerTiles( numTiles ); });
+
+   /* memui.disableAnswers() */
+   $("#answer-grid2 div").each( function(key, item) {
+      $(item).children().attr('disabled', 'disabled');
+   });
+   $("#answer-grid2").fadeOut(500);
 }
 
 function doCorrectAnswer(e) {
@@ -211,6 +217,9 @@ function nextQuestion() {
    _questions.splice(i, 1);
    $(".the-question").html($currQuestion);
 
+   /* memui.setMedia() */
+   memui.setMedia($currQuestion);
+
    $currAnswer = answers.splice(i, 1)[0];
    _answers.splice(i, 1);
    $(".the-answer").html($currAnswer);
@@ -224,6 +233,7 @@ function updateAnswerTiles(nTiles) {
 
     // animate and remove current objects
     $("#answer-grid").empty();
+    $("#answer-grid2").empty();
 
    // ensure there are enough answer to accomidate tiles
    if (questions.length < nTiles) {
@@ -232,7 +242,7 @@ function updateAnswerTiles(nTiles) {
 
    var used = Array();
    var tobuild = Array();
-   for ( var i=0; i < nTiles; i++ ) {
+   for ( var i=0; i < nTiles-1; i++ ) {
       // pick a random answer from
       var q = chooseRandomQuestion();
 
@@ -247,15 +257,24 @@ function updateAnswerTiles(nTiles) {
       tobuild.push(answers[q]);
    }
    console.log(tobuild);
+
    // insert the correct answer at a random location
    var index = Math.floor(Math.random()*(nTiles)+0);
-   tobuild.splice(index, 1, $currAnswer);
+   tobuild.splice(index, 0, $currAnswer);
+   tobuild.sort();
 
    $(tobuild).each( function(k,a) {
       $("#answer-grid").append(buildAnswerTile(a));
+      $("#answer-grid2").append(buildAnswerButton(a));
    });
 
    $("#answer-grid").fadeIn(1000);
+
+   /* memui.enableAnswers() */
+   $("#answer-grid2 div").each( function(key, item) {
+      $(item).children().attr('disabled', false);
+   });
+   $("#answer-grid2").fadeIn(1000);
 }
 
 function buildAnswerTile(a) {
@@ -280,6 +299,26 @@ function buildAnswerTile(a) {
    });
 
    return $div;
+}
+
+function buildAnswerButton(a) {
+   $button = $('<button>', {
+      class: "uk-button uk-button-secondary uk-button-large uk-border-rounded uk-box-shadow-medium",
+      html: a,
+      value: a,
+      disabled: true,
+      on: {
+         'click': function( e ) {
+            submitAnswer(e.currentTarget);
+         }
+      }
+   });
+
+   $div = $('<div>', {
+      html: $button
+   });
+
+   return $div
 }
 
 function updateHint() {
