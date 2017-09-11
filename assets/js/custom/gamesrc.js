@@ -214,11 +214,12 @@ function nextQuestion() {
 
    // remove the question and answer
    $currQuestion = questions.splice(i, 1)[0];
-   _questions.splice(i, 1);
+   var cQuestion_norm = _questions.splice(i, 1);
    $(".the-question").html($currQuestion);
 
    /* memui.setMedia() */
-   memui.setMedia($currQuestion);
+   memui.setMedia(cQuestion_norm);
+   memui.setQuestionTemplate(gameData["question_phrase"]);
 
    $currAnswer = answers.splice(i, 1)[0];
    _answers.splice(i, 1);

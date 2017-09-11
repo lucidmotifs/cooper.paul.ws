@@ -3,7 +3,7 @@
   "short_name":"capitals",
   "tag":"Julia's Geography and Memory Game",
   "media":"",
-  "question_phrase":"What is the Capital City of $",
+  "question_phrase":"What is the Capital City of $?",
   "question_datasets":
   [{
     "id":1,"label":"countries_of_africa","contains":"countries","of":"africa"},{

@@ -1,7 +1,8 @@
 /** memui class (UI Singleton) **/
 var memui = new function() {
-   // The main question display container
+   // The id main question display container
    this.qcont = "question-container";
+   this.qtemplate = "mem-question-template"
 
    // Set the media for a new question
    this.setMedia = function(q) {
@@ -14,11 +15,32 @@ var memui = new function() {
       $("#"+this.qcont).prepend($media);
 
       $prev = $("#"+this.qcont+" img:last-of-type");
-      //$prev.fadeOut(500);
-      $prev.animate({width:'toggle'},250);
+      $container = $('#'+this.qcont);
+
+      $container.removeClass('uk-animation-slide-right');
+      $container.addClass('uk-animation-slide-left uk-animation-reverse');
+      $container.animate({width:'toggle'}, 350);
       setTimeout( function() {
          $prev.remove();
-      }, 500 );
+         $container.removeClass('uk-animation-slide-left uk-animation-reverse');
+         $container.addClass('uk-animation-slide-right');
+         $container.animate({width:'toggle'}, 350);
+      }, 350 );
+   }
+
+   this.setQuestionTemplate = function( text ) {
+      $("."+this.qtemplate).html(text.replace('$', this.questionText($currQuestion)[0].outerHTML));
+   }
+
+   // A text label for the current question
+   // return element
+   this.questionText = function( text, tag='span' ) {
+      $el = $('<span>', {
+         class: 'mem-question-text',
+         html: text
+      });
+
+      return $el;
    }
 
    this.getInfo = function () {
