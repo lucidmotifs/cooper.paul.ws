@@ -1,17 +1,37 @@
 {
-  "id":1,
-  "short_name":"capitals",
-  "tag":"Julia's Geography and Memory Game",
-  "media":"",
-  "question_phrase":"What is the Capital City of $?",
-  "question_datasets":
-  [{
-    "id":1,"label":"countries_of_africa","contains":"countries","of":"africa"},{
-    "id":2,"label":"countries_of_europe","contains":"countries","of":"europe"
-  }],
-  "answer_datasets":
-  [{
-    "id":3,"label":"capital_cities_of_africa","contains":"cities","of":"africa","special":"capital"},{
-    "id":4,"label":"capital_cities_of_europe","contains":"cities","of":"europe","special":"capital"
-  }]
+   "games":
+   [{
+     "id":1,
+     "short_name":"capitals",
+     "tag":"Julia's Geography and Memory Game",
+     "media":"",
+     "question_phrase":"What is the Capital City of $?",
+     "question_datasets":
+     [{
+       "id":1,"label":"countries_of_africa","contains":"countries","of":"africa"},{
+       "id":2,"label":"countries_of_europe","contains":"countries","of":"europe"
+     }],
+     "answer_datasets":
+     [{
+       "id":3,"label":"capital_cities_of_africa","contains":"cities","of":"africa","special":"capital"},{
+       "id":4,"label":"capital_cities_of_europe","contains":"cities","of":"europe","special":"capital"
+     }]
+   },
+   {
+      "id":2,
+      "short_name":"translations",
+      "tag":"Julia's Memory Game",
+      "media":"",
+      "question_phrase":"What is the English Translation of $?",
+      "question_datasets":
+      [{
+        "id":5,"label":"common_german_words","contains":"words","of":"germany"},{
+        "id":6,"label":"common_french_words","contains":"words","of":"germany"
+      }],
+      "answer_datasets":
+      [{
+        "id":7,"label":"common_german_words_english","contains":"words","of":"england","special":"german"},{
+        "id":8,"label":"common_french_words_english","contains":"words","of":"england","special":"french"
+      }]
+   }]
 }

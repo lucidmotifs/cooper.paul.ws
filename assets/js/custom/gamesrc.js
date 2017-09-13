@@ -13,10 +13,11 @@ function successAlert() {
 }
 
 function failAlert() {
-   UIkit.notification('Wrong answer! Try again', 'danger');
+   UIkit.notification('Wrong answer! It was: '+$currAnswer, 'danger');
 }
 
-function requestGameData( gameid ) {
+let gameid = 2;
+function requestGameData() {
   var json = null;
 
   // make the request
@@ -27,7 +28,7 @@ function requestGameData( gameid ) {
     dataType: "json",
 
     success: function( data ) {
-      json = data;
+      json = data['games'][gameid-1];
       console.log(json);
     },
 
