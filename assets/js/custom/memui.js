@@ -17,15 +17,17 @@ var memui = new function() {
       $prev = $("#"+this.qcont+" img:last-of-type");
       $container = $('#'+this.qcont);
 
-      $container.removeClass('uk-animation-slide-right');
-      $container.addClass('uk-animation-slide-left uk-animation-reverse');
-      $container.animate({width:'toggle'}, 350);
+      setTimeout( function() {
+        $container.removeClass('uk-animation-slide-right');
+        $container.addClass('uk-animation-slide-left uk-animation-reverse');
+        //$container.animate({width:'toggle'}, 350);
+      }, 500 );
       setTimeout( function() {
          $prev.remove();
          $container.removeClass('uk-animation-slide-left uk-animation-reverse');
          $container.addClass('uk-animation-slide-right');
-         $container.animate({width:'toggle'}, 350);
-      }, 350 );
+         //$container.animate({width:'toggle'}, 350);
+      }, 1000 );
    }
 
    this.setQuestionTemplate = function( text ) {
