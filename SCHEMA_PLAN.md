@@ -1,5 +1,7 @@
 ## CORE Entities
 
+
+
 - Region -> location -> geo-area
 - Country -> land-area
 -- Nation -> geo-pol-area
@@ -14,6 +16,7 @@
 
 ### Subtypes (inheritence)
 - Language
+- Border
 
 ### Relationships
 - partOf (
